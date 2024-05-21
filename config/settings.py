@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party pack
+    'django_jalali', 
+
+    # local apps
     'pages.apps.PagesConfig',
     'posts.apps.PostsConfig',
 ]

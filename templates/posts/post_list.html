@@ -1,4 +1,5 @@
 {% load static %}
+{% load jformat %}
 
 <!DOCTYPE html>
 <html lang="fa">
@@ -912,7 +913,7 @@
                                 <div class="post-card">
                                     <div class="post-thumbnail">
                                         <a href="#">
-                                            <img src="./assets/img/post-thumbnail/1.png" alt="">
+                                            <img src="{{ post.cover.url }}" alt="">
                                         </a>
                                         <span class="post-tag">مقاله</span>
 
@@ -922,7 +923,9 @@
                                             {{ post.title }}
                                         </a>
                                         <span class="post-date">
-                                            چهارشنبه، 18 دی 1398
+                                            {{ post.datetime_created.date }}
+                                            <br>
+                                            {% comment %} چهارشنبه، 18 دی 1398 {% endcomment %}
                                         </span>
                                     </div>
                                 </div>
