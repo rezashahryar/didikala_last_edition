@@ -26,6 +26,8 @@ urlpatterns = [
 
     # django summer note pack
     path('summernote/', include('django_summernote.urls')),
+    # django debug toolbar
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

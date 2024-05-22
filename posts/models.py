@@ -13,5 +13,8 @@ class Post(models.Model):
     datetime_created = jmodels.jDateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-datetime_created',)
+
     def __str__(self):
         return self.title
