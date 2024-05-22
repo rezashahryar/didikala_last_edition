@@ -11,17 +11,22 @@ class PostListView(generic.ListView):
                                                 )
     template_name = 'posts/post_list.html'
     context_object_name = 'posts'
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
+        global categories
+        global tags
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all().defer(
+        tags = Tag.objects.all().defer(
                                             'datetime_created', 
                                             'datetime_modified',
                                           )
-        context['categories'] = Category.objects.all().defer(
+        context['tags'] = tags
+        categories = Category.objects.all().defer(
                                                         'datetime_created',
                                                         'datetime_modified',
                                                     )
+        context['categories'] = categories
 
         return context
     
@@ -40,5 +45,8 @@ class PostDetailView(generic.DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['latest_posts'] = Post.objects.all()[:4]
+        context['categories'] = categories
+        context['tags'] = tags
 
         return context
