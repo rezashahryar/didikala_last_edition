@@ -32,7 +32,7 @@ class Post(models.Model):
     slug = models.SlugField()
     cover = models.ImageField(upload_to='posts/')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts', blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts', blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts')
 
     status = models.BooleanField(default=True)

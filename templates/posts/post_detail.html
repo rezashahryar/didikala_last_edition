@@ -41,12 +41,13 @@
                                     </div>
                                     <div class="post-meta author">
                                         <i class="mdi mdi-account-circle-outline"></i>
-                                        ارسال شده توسط<a href="#">مدیریت</a>
+                                        ارسال شده توسط <a href="#">{{ post.author }}</a>
                                     </div>
                                     <div class="post-meta category">
                                         <i class="mdi mdi-folder"></i>
-                                        <a href="#">دسته‌بندی نشده</a> ، <a href="#">کسب و کار آنلاین</a> ، <a
-                                            href="#">معرفی کتاب</a>
+                                        {% for tag in post.tags.all %}
+                                        <a href="#">{{ tag.name }}</a>
+                                        {% endfor %}
                                     </div>
                                     <div class="post-meta category">
                                         <i class="mdi mdi-eye"></i>

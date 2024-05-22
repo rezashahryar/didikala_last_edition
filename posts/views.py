@@ -32,6 +32,13 @@ class PostDetailView(generic.DetailView):
 
     def get_object(self):
         slug = self.kwargs.get('slug')
-        post = get_object_or_404(Post, slug__exact=slug)
+        post = get_object_or_404(Post.objects.select_related('category').select_related('author'), 
+                                slug__exact=slug,
+                                )
         
         return post
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
