@@ -7,6 +7,7 @@ from .models import Post, Tag, Category
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ('description',)
     list_display = ['title']
+    prepopulated_fields = {'slug': ('title',)}
     
 
 @admin.register(Tag)
