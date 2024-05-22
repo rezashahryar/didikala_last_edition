@@ -95,12 +95,9 @@
                                 <h2>برچسبها</h2>
                             </div>
                             <ul class="tag-list">
-                                <li><a href="#">بهینه سازی</a></li>
-                                <li><a href="#">برنامه نویسی</a></li>
-                                <li><a href="#">طراحی سایت</a></li>
-                                <li><a href="#">وردپرس</a></li>
-                                <li><a href="#">پلاگین نویسی</a></li>
-                                <li><a href="#">گرافیک</a></li>
+                                {% for tag in tags %}
+                                <li><a href="#">{{ tag.name }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
