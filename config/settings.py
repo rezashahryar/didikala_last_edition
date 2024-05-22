@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # third party pack
     'django_jalali', 
+    'django_summernote',
 
     # local apps
     'pages.apps.PagesConfig',
@@ -125,6 +126,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join('staticfiles')
 
 # media settings
 MEDIA_URL = 'media/'

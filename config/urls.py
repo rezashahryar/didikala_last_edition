@@ -23,6 +23,9 @@ urlpatterns = [
     path('post/', include('posts.urls')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
+
+    # django summer note pack
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
