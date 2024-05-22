@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'posts.apps.PostsConfig',
     'core.apps.CoreConfig',
+    'comments.apps.CommentsConfig',
 ]
 
 MIDDLEWARE = [
