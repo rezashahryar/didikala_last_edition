@@ -1,5 +1,7 @@
 from django.views import generic
 from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
+from comments.models import PostComment
 from . models import Post, Tag, Category
 # Create your views here.
 
@@ -18,14 +20,14 @@ class PostListView(generic.ListView):
         global tags
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all().defer(
-                                            'datetime_created', 
-                                            'datetime_modified',
-                                          )
+                                    'datetime_created', 
+                                    'datetime_modified',
+                                )
         context['tags'] = tags
         categories = Category.objects.all().defer(
-                                                        'datetime_created',
-                                                        'datetime_modified',
-                                                    )
+                                                'datetime_created',
+                                                'datetime_modified',
+                                            )
         context['categories'] = categories
 
         return context
@@ -37,7 +39,11 @@ class PostDetailView(generic.DetailView):
 
     def get_object(self):
         slug = self.kwargs.get('slug')
-        post = get_object_or_404(Post.objects.select_related('category').select_related('author'), 
+        post = get_object_or_404(Post.objects.select_related('category').select_related('author').prefetch_related(
+                                                            Prefetch(
+                                                                'comments',
+                                                                queryset=PostComment.objects.select_related('user')                                     
+                                                            )), 
                                 slug__exact=slug,
                                 )
         
@@ -46,7 +52,13 @@ class PostDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['latest_posts'] = Post.objects.all()[:4]
-        context['categories'] = categories
-        context['tags'] = tags
+        context['categories'] = Category.objects.all().defer(
+                                                        'datetime_created',
+                                                        'datetime_modified',
+                                                    )
+        context['tags'] = Tag.objects.all().defer(
+                                                'datetime_created', 
+                                                'datetime_modified',
+                                            )
 
         return context

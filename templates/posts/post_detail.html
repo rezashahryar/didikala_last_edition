@@ -101,19 +101,20 @@
                             </div>
                             <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 mt-5 dt-sl">
                                 <h2>نظرات کاربران</h2>
-                                <p class="count-comment">123 نظر</p>
+                                <p class="count-comment">{{ post.comments.all.count }} نظر</p>
                             </div>
                             <ol class="comment-list">
                                 <!-- #comment-## -->
+                                {% for comment in post.comments.all %}
                                 <li>
                                     <div class="comment-body mt-3">
                                         <div class="row">
                                             <div class="col-12 comment-content">
                                                 <div class="comment-author">
-                                                    توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
+                                                    توسط {{ comment.user }} در تاریخ{{ comment.datetime_created.date }}
                                                 </div>
 
-                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <p>{{ comment.text }}</p>
 
                                                 <div class="footer">
                                                     <div class="comments-likes">
@@ -128,119 +129,9 @@
                                         </div>
                                     </div>
                                 </li>
+                                {% endfor %}
                                 <!-- #comment-## -->
-                                <li>
-                                    <div class="comment-body">
-                                        <div class="row">
-                                            <div class="col-12 comment-content">
-                                                <div class="comment-author">
-                                                    توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                </div>
-                                                <p>
-                                                    بعد از چندین هفته بررسی تصمیم به خرید
-                                                    این مدل از ماشین لباسشویی گرفتم ولی
-                                                    متاسفانه نتونست انتظارات منو برآورده کنه
-                                                    .
-                                                    دو تا ایراد داره یکی اینکه حدودا تا 20
-                                                    دقیقه اول شستشو یه صدایی شبیه به صدای
-                                                    پمپ تخلیه همش به گوش میاد که رو مخه یکی
-                                                    هم با اینکه خشک کنش تا 1400 دور در دقیقه
-                                                    میچرخه، ولی اون طوری که دوستان تعریف
-                                                    میکردن لباسها رو خشک نمیکنه .ضمنا برای
-                                                    این صدایی که گفتم زنگ زدم نمایندگی اومدن
-                                                    دیدن، وتعمیرکار گفتش که این صدا طبیعیه و
-                                                    تا چند دقیقه اول شستشو عادیه.بدجوری خورد
-                                                    تو ذوقم. اگه بیشتر پول میذاشتم میتونستم
-                                                    یه مدل میان رده از مارکهای بوش یا آ ا گ
-                                                    میخریدم که خیلی بهتر از جنس مونتاژی کره
-                                                    ای هستش.
-                                                </p>
-
-                                                <div class="footer">
-                                                    <div class="comments-likes">
-                                                        آیا این نظر برایتان مفید بود؟
-                                                        <button class="btn-like" data-counter="۱۱">بله
-                                                        </button>
-                                                        <button class="btn-like" data-counter="۶">خیر
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- #comment-## -->
-                                <li>
-                                    <div class="comment-body">
-                                        <div class="row">
-                                            <div class="col-12 comment-content">
-                                                <div class="comment-author">
-                                                    توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                </div>
-
-                                                <p>لورم ایپسوم متن ساختگی</p>
-
-                                                <div class="footer">
-                                                    <div class="comments-likes">
-                                                        آیا این نظر برایتان مفید بود؟
-                                                        <button class="btn-like" data-counter="۱۱">بله
-                                                        </button>
-                                                        <button class="btn-like" data-counter="۶">خیر
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- #comment-## -->
-                                <li>
-                                    <div class="comment-body">
-                                        <div class="row">
-                                            <div class="col-12 comment-content">
-                                                <div class="comment-author">
-                                                    توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                </div>
-
-                                                <p>لورم ایپسوم متن ساختگی</p>
-
-                                                <div class="footer">
-                                                    <div class="comments-likes">
-                                                        آیا این نظر برایتان مفید بود؟
-                                                        <button class="btn-like" data-counter="۱۱">بله
-                                                        </button>
-                                                        <button class="btn-like" data-counter="۶">خیر
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- #comment-## -->
-                                <li>
-                                    <div class="comment-body">
-                                        <div class="row">
-                                            <div class="col-12 comment-content">
-                                                <div class="comment-author">
-                                                    توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                </div>
-
-                                                <p>لورم ایپسوم متن ساختگی</p>
-
-                                                <div class="footer">
-                                                    <div class="comments-likes">
-                                                        آیا این نظر برایتان مفید بود؟
-                                                        <button class="btn-like" data-counter="۱۱">بله
-                                                        </button>
-                                                        <button class="btn-like" data-counter="۶">خیر
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                             </ol>
                         </div>
                     </div>
