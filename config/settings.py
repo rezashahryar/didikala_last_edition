@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # local apps
     'pages.apps.PagesConfig',
     'posts.apps.PostsConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+# config custom user model
+AUTH_USER_MODEL = 'core.User'
