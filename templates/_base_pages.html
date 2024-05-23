@@ -39,6 +39,14 @@
                     style="background-image: url({% static 'assets/img/banner/large-ads.jpg' %})"></a>
             </div>
             <!-- End ads -->
+            <br>
+            {% if messages %}
+                <div class="container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <!-- Start topbar -->
             <div class="container main-container">
                 <div class="topbar dt-sl">
@@ -1062,8 +1070,8 @@
                     </p>
                 </div>
                 <div class="symbol col-12 col-lg-5">
-                    <a href="#" target="_blank"><img src="assets/img/symbol-01.png' %}" alt=""></a>
-                    <a href="#" target="_blank"><img src="assets/img/symbol-02.png' %}" alt=""></a>
+                    <a href="#" target="_blank"><img src="{% static 'assets/img/symbol-01.png' %}" alt=""></a>
+                    <a href="#" target="_blank"><img src="{% static 'assets/img/symbol-02.png' %}" alt=""></a>
                 </div>
             </div>
         </div>
@@ -1082,7 +1090,7 @@
 </div>
 
 <!-- colorPanel -->
-<div id="colorswitch-option">
+{% comment %} <div id="colorswitch-option">
 <button><i class="mdi mdi-settings"></i></button>
 <ul>
     <li class="active" data-path="{% static 'assets/css/colors/default.css' %}"><span
@@ -1101,7 +1109,7 @@
     <li data-path="{% static 'assets/css/colors/teal-color.css' %}"><span style="background-color: #009688;"></span></li>
     <li data-path="{% static 'assets/css/colors/purple-color.css' %}"><span style="background-color: #9c27b0;"></span></li>
 </ul>
-</div>
+</div> {% endcomment %}
 <!-- end colorPanel -->
 <!-- Core JS Files -->
 <script src="{% static 'assets/js/vendor/jquery-3.4.1.min.js' %}"></script>

@@ -1,5 +1,6 @@
 {% extends "_base_pages.html" %}
 {% load static %}
+{% load post_tags %}
 
 {% block title %}جزئیات مقاله {{ post.title }}{% endblock title %}
 
@@ -68,20 +69,21 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-ui blog-comment">
-                                            <form onsubmit="return false">
+                                            <form action="{% url "comments:add_comment_post" post.slug %}" method="POST">
+                                                {% csrf_token %}
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-row-title mb-2">عنوان نظر شما (اجباری)
                                                         </div>
                                                         <div class="form-row">
-                                                            <input class="input-ui pr-2" type="text"
+                                                            <input name="title" class="input-ui pr-2" type="text"
                                                                 placeholder="عنوان نظر خود را بنویسید">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 mt-3 mb-3">
                                                         <div class="form-row-title mb-2">متن نظر شما (اجباری)</div>
                                                         <div class="form-row">
-                                                            <textarea class="input-ui pr-2 pt-2" rows="5"
+                                                            <textarea name="text" class="input-ui pr-2 pt-2" rows="5"
                                                                 placeholder="متن خود را بنویسید"></textarea>
                                                         </div>
                                                     </div>
@@ -89,7 +91,7 @@
                                                         <p class="d-block">با “ثبت نظر” موافقت خود را با <a href="#"
                                                                 class="border-bottom-dt" target="_blank">قوانین
                                                                 انتشار محتوا</a> در دیجی‌کالا اعلام می‌کنم.</p>
-                                                        <button class="btn btn btn-primary px-3">
+                                                        <button type="submit" class="btn btn btn-primary px-3">
                                                             ثبت نظر
                                                         </button>
                                                     </div>
@@ -116,15 +118,7 @@
 
                                                 <p>{{ comment.text }}</p>
 
-                                                <div class="footer">
-                                                    <div class="comments-likes">
-                                                        آیا این نظر برایتان مفید بود؟
-                                                        <button class="btn-like" data-counter="۱۱">بله
-                                                        </button>
-                                                        <button class="btn-like" data-counter="۶">خیر
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                {% comment_of_product_scores comment %}
                                             </div>
                                         </div>
                                     </div>

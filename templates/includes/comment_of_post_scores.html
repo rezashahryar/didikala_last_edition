@@ -1,0 +1,18 @@
+<div class="footer">
+    <div class="comments-likes">
+        آیا این نظر برایتان مفید بود؟
+        <form method="GET" action="{% url 'comments:create_score' comment.post.slug %}" class="btn-like"
+        
+           data-counter="{{ like_count }}">
+           <input name="type" type="hidden" value="l">
+           <input name="comment_id" type="hidden" value="{{ comment.id }}">
+           <input class="btn-like" type="submit" value="بله">
+        </form>
+        <form method="GET" action="{% url 'comments:create_score' comment.post.slug %}" class="btn-like"
+           data-counter="{{ dislike_count }}">
+           <input name="type" type="hidden" value="dl">
+           <input name="comment_id" type="hidden" value="{{ comment.id }}">
+           <input class="btn-like" type="submit" value="خیر">
+        </form>
+    </div>
+</div>
