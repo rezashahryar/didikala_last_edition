@@ -58,6 +58,7 @@ class Post(models.Model):
     published = PostManager()
 
     class Meta:
+        db_table = 'post'
         ordering = ('-datetime_created',)
 
     def __str__(self):
