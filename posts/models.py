@@ -24,6 +24,12 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class PostManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.POST_STATUS_PUBLISHED)
 
 
 class Post(models.Model):
@@ -47,6 +53,9 @@ class Post(models.Model):
 
     datetime_created = jmodels.jDateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    published = PostManager()
 
     class Meta:
         ordering = ('-datetime_created',)

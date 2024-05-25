@@ -6,11 +6,11 @@ from . models import Post, Tag, Category
 # Create your views here.
 
 class PostListView(generic.ListView):
-    queryset = Post.objects.filter(status=True).defer(
-                                                    'description',
-                                                    'datetime_modified',
-                                                    'status',
-                                                )
+    queryset = Post.published.all().defer(
+                                        'description',
+                                        'datetime_modified',
+                                        'status',
+                                    )
     template_name = 'posts/post_list.html'
     context_object_name = 'posts'
     paginate_by = 1
