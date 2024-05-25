@@ -27,6 +27,14 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    POST_STATUS_PUBLISHED = 'p'
+    POST_STATUS_DRAFT = 'd'
+
+    POST_STATUS = (
+        (POST_STATUS_PUBLISHED, 'Published'),
+        (POST_STATUS_DRAFT, 'Draft')
+    )
+
     title = models.CharField(max_length=255)
     description = models.TextField()
     slug = models.SlugField()
@@ -35,7 +43,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts')
 
-    status = models.BooleanField(default=True)
+    status = models.CharField(max_length=2, choices=POST_STATUS, default=POST_STATUS_PUBLISHED)
 
     datetime_created = jmodels.jDateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
