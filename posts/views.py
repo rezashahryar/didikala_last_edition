@@ -16,8 +16,6 @@ class PostListView(generic.ListView):
     paginate_by = 1
 
     def get_context_data(self, **kwargs):
-        global categories
-        global tags
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all().defer(
                                     'datetime_created', 
