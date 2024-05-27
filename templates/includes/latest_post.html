@@ -1,0 +1,19 @@
+
+<div class="content-sidebar dt-sl">
+    {% for post in latest_posts %}
+    <div class="item">
+        <div class="item-inner">
+            <div class="item-thumb">
+                <a href="#" class="img-holder"
+                    style="background-image: url({{ post.cover.url }})"></a>
+            </div>
+            <p class="title">
+                <a href="#">{{ post.title }}</a>
+            </p>
+            <div class="item-meta">
+                <span class="time">{{ post.datetime_created.date }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

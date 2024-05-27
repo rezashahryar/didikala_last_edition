@@ -1,0 +1,12 @@
+
+<ul class="category-list">
+    {% for cat in categories %}
+    <li><a href="{% url "posts:category_objects" cat.slug %}">{{ cat.name }}</a></li>
+    {% endfor %}
+    {% comment %} <li><a href="#">طراحی سایت</a>
+        <ul>
+            <li><a href="#">وردپرس</a></li>
+            <li><a href="#">پلاگین نویسی</a></li>
+        </ul>
+    </li> {% endcomment %}
+</ul>

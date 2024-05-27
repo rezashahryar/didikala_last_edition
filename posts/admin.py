@@ -7,7 +7,8 @@ from core.models import User
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ('description',)
-    list_display = ['title', 'status']
+    list_display = ['title', 'category', 'status']
+    list_editable = ['status']
     prepopulated_fields = {'slug': ('title',)}
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
