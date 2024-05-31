@@ -30,6 +30,8 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     # django debug toolbar
     path("__debug__/", include("debug_toolbar.urls")),
+    # tiny-mce text editor pack
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

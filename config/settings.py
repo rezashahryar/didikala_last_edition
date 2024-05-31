@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_jalali', 
     'django_summernote',
     'debug_toolbar',
+    'tinymce',
 
     # local apps
     'pages.apps.PagesConfig',
