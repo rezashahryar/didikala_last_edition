@@ -12,6 +12,7 @@ class HomePageView(generic.TemplateView):
         context['categories'] = ProductCategory.objects.all().prefetch_related('children__sub_children')
         context['best_sellers'] = Product.objects.all() \
             .select_related('category').order_by('-sales_number')[:7]
+        context['discounted_products'] = Product.objects.filter(discount__gt=0)
         return context
 
 

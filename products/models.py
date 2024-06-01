@@ -155,6 +155,13 @@ class Product(models.Model):
             return True
         else:
             return False
+        
+    @property
+    def get_price(self):
+        if self.discount > 0:
+            return (self.price - int((self.price * self.discount) / 100))
+        else:
+            return self.price
 
     @property
     def get_price_discount_of_product(self):
