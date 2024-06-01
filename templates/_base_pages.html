@@ -94,6 +94,7 @@
                                         <i class="mdi mdi-account-circle-outline"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                                        {% if user.is_authenticated %}
                                         <a class="dropdown-item" href="#">
                                             <i class="mdi mdi-account-card-details-outline"></i>پروفایل
                                         </a>
@@ -107,6 +108,11 @@
                                         <div class="dropdown-divider" role="presentation"></div>
                                         <a class="dropdown-item" href="#">
                                             <i class="mdi mdi-logout-variant"></i>خروج
+                                        </a>
+                                        {% else %}
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-logout-variant"></i>ثبت نام یا ورود
+                                        {% endif %}
                                         </a>
                                     </div>
                                 </li>
