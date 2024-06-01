@@ -1,6 +1,6 @@
 from django.views import generic
 from django.db.models import Prefetch
-from products.models import ProductCategory, SubProductCategory
+from products.models import ProductCategory, SubProductCategory, Product
 # Create your views here.
 
 
@@ -9,10 +9,9 @@ class HomePageView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all().prefetch_related(Prefetch(
-            'children',
-            queryset=SubProductCategory.objects.select_related('parent')
-        ))
+        context['categories'] = ProductCategory.objects.all().prefetch_related('children__sub_children')
+        context['best_sellers'] = Product.objects.all() \
+            .select_related('category').order_by('-sales_number')[:7]
         return context
 
 

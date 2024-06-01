@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'sub_category', 'price', 'inventory', 'available']
+    list_display = ['title', 'category', 'sub_category', 'price', 'sales_number', 'inventory', 'available']
     prepopulated_fields = {'slug': ('title',)}
 
 
@@ -32,5 +32,11 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(models.SubProductCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'parent', 'main_category']
+    list_display = ['title', 'main_category']
+    prepopulated_fields = {"slug": ("title",)}
+
+
+@admin.register(models.SubSubProductCategory)
+class SubSubProductCategory(admin.ModelAdmin):
+    list_display = ['title', 'main_sub_category']
     prepopulated_fields = {"slug": ("title",)}

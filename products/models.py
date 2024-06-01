@@ -62,7 +62,6 @@ class ProductCategory(models.Model):
 
 class SubProductCategory(models.Model):
     main_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='children', verbose_name=_('دسته بندی اصلی'))
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_children', null=True, blank=True)
     title = models.CharField(_('عنوان'), max_length=100)
     slug = models.SlugField(_('مسیر یو ار ال'), unique=True)
 
@@ -75,6 +74,18 @@ class SubProductCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse('product:sub_category_objects_view', args=[self.slug])
+    
+
+class SubSubProductCategory(models.Model):
+    main_sub_category = models.ForeignKey(SubProductCategory, on_delete=models.CASCADE, related_name='sub_children', verbose_name=_('دسته بندی اصلی'))
+    title = models.CharField(_('عنوان'), max_length=100)
+    slug = models.SlugField(_('مسیر یو ار ال'), unique=True)
+
+    def __str__(self):
+        return self.title
+
+    # def get_absolute_url(self):
+    #     return reverse('product:sub_category_objects_view', args=[self.slug])
 
 
 def random_number():
@@ -94,6 +105,7 @@ class ProductMovie(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='products', verbose_name=_('دسته بندی'))
     sub_category = models.ForeignKey(SubProductCategory, on_delete=models.CASCADE, null=True, blank=True, related_name='products', verbose_name=_('دسته بندی فرعی'))
+    sub_sub_category = models.ForeignKey(SubSubProductCategory, on_delete=models.CASCADE, related_name='products', null=True)
     title = models.CharField(_('عنوان'), max_length=100)
     slug = models.SlugField(_('مسیر یو ار ال'), unique=True, null=True)
     product_code = models.CharField(_('کد محصول'), max_length=8, default=random_number)
@@ -115,13 +127,13 @@ class Product(models.Model):
 
     sales_number = models.PositiveIntegerField(_('تعداد فروش'), default=0)
 
-    created_date = models.DateTimeField(_('created_date'), auto_now_add=True)
-    updated_date = models.DateTimeField(_('updated_date'), auto_now=True)
+    datetime_created = models.DateTimeField(_('created_date'), auto_now_add=True)
+    datetime_updated = models.DateTimeField(_('updated_date'), auto_now=True)
 
     objects = models.Manager()
 
     class Meta:
-        ordering = ('-created_date',)
+        ordering = ('-datetime_created',)
         verbose_name = _('product')
         verbose_name_plural = _('products')
 
