@@ -92,8 +92,8 @@ class ProductComment(models.Model):
 
     class Meta:
         ordering = ('-datetime_created',)
-        verbose_name = _('کامنت محصولات')
-        verbose_name_plural = _('کامنت های محصولات')
+        verbose_name = _('comment_of_product')
+        verbose_name_plural = _('comments_of_products')
 
     def __str__(self):
         return self.title
@@ -120,7 +120,7 @@ class ProductCommentScore(models.Model):
         ('l', _('like')),
         ('dl', _('dislike')),
     ]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='like')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_like')
     comment = models.ForeignKey(ProductComment, on_delete=models.CASCADE, related_name='scores')
     score = models.CharField(max_length=3, choices=SCORE)
 
