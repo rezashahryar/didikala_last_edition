@@ -1,13 +1,59 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, get_list_or_404
 from django.views import generic
 from django.db.models import Prefetch
 from django.views.decorators.http import require_POST
 
 from comments.models import ProductComment, ProductPoints
 
-from .models import Product, SetProductProperty, Question
+from .models import Product, ProductCategory, SetProductProperty, Question, SubProductCategory, SubSubProductCategory
 from .forms import QuestionForm
+
 # Create your views here.
+
+class ProductsOfCategoryListView(generic.ListView):
+    template_name = 'products/product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        global category_object
+        category_slug = self.kwargs.get('cat_slug')
+        category_object = get_object_or_404(ProductCategory, slug=category_slug)
+
+        products = get_list_or_404(Product, category=category_object)
+
+        return products
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = category_object
+
+        return context
+    
+
+class ProductOfSubCategoryListView(generic.ListView):
+    template_name = 'products/product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        sub_cat = self.kwargs.get('sub_category')
+        sub_category_object = get_object_or_404(SubProductCategory, slug=sub_cat)
+
+        products = get_list_or_404(Product, sub_category=sub_category_object)
+
+        return products
+
+
+class ProductOfSubSubCategoryListView(generic.ListView):
+    template_name = 'products/product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        sub_sub_cat_slug = self.kwargs.get('sub_sub_category')
+        sub_sub_category_obj = get_object_or_404(SubSubProductCategory, slug=sub_sub_cat_slug)
+
+        products = get_list_or_404(Product, sub_sub_category=sub_sub_category_obj)
+
+        return products
 
 
 class ProductDetailView(generic.DetailView):

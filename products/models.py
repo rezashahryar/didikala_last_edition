@@ -54,7 +54,7 @@ class ProductCategory(models.Model):
         verbose_name_plural = _('categories')
 
     def get_absolute_url(self):
-        return reverse('product:category_objects_view', args=[self.slug])
+        return reverse('products:category_objects_view', args=[self.slug])
 
     def __str__(self):
         return self.title[:15]
@@ -73,7 +73,7 @@ class SubProductCategory(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('product:sub_category_objects_view', args=[self.slug])
+        return reverse('products:sub_category_objects_view', args=[self.main_category.slug, self.slug])
     
 
 class SubSubProductCategory(models.Model):
@@ -84,8 +84,12 @@ class SubSubProductCategory(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse('product:sub_category_objects_view', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('products:sub_sub_category_objects_view', args=[
+            self.main_sub_category.main_category.slug,
+            self.main_sub_category.slug,
+            self.slug,
+        ])
 
 
 def random_number():
