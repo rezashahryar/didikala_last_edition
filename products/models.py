@@ -173,7 +173,7 @@ class Product(models.Model):
 
 
 class SetProductProperty(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='property', verbose_name=_('محصول'))
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='properties', verbose_name=_('محصول'))
     property = models.ForeignKey(ProductProperties, on_delete=models.CASCADE, verbose_name=_('ویژگی'))
     value = models.CharField(_('مقدار'), max_length=250)
 

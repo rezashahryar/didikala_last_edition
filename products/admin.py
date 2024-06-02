@@ -41,3 +41,8 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class SubSubProductCategory(admin.ModelAdmin):
     list_display = ['title', 'main_sub_category']
     prepopulated_fields = {"slug": ("title",)}
+
+
+@admin.register(models.SetProductProperty)
+class SetProductProperty(admin.ModelAdmin):
+    list_display = ['property', 'value']
