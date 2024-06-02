@@ -1,0 +1,27 @@
+
+{% for category in categories_navbar %}
+    <li class="list-item list-item-has-children menu-col-1">
+        <a class="nav-link" href="#">{{ category.title }}</a>
+        <ul class="sub-menu nav">
+            {% comment %} <li class="list-item">
+                <a class="nav-link" href="#">زیر منو دو</a>
+            </li> {% endcomment %}
+            {% if category.children %}
+            {% for sub_category in category.children.all %}
+            <li class="list-item list-item-has-children">
+                <a class="nav-link" href="#">{{ sub_category.title }}</a>
+                <ul class="sub-menu nav">
+                    {% if sub_category.sub_children %}
+                    {% for sub_sub_cat in sub_category.sub_children.all %}
+                    <li class="list-item">
+                        <a class="nav-link" href="#">{{ sub_sub_cat.title }}</a>
+                    </li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </li>
+{% endfor %}

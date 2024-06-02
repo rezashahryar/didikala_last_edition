@@ -1,0 +1,18 @@
+
+<ul>
+    {% for category in categories %}
+    <li>
+        <a href="#">{{ category.title }}</a>
+        <ul class="row">
+            {% if category.children %}
+                {% for sub_category in category.children.all %}
+                        <li class="sublist--title"><a href="#">{{ sub_category.title }}</a></li>
+                        {% for sub_sub_cat in sub_category.sub_children.all %}
+                        <li class="sublist--item"><a href="#">{{ sub_sub_cat.title }}</a></li>
+                        {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
