@@ -24,11 +24,11 @@ def create_score(request, slug):
 
         messages.success(request, 'امتیاز شما با موفقیت حذف شد')
 
-    except:
+    except PostCommentScore.DoesNotExist:
         try:
             tscore = PostCommentScore.objects.get(comment_id=comment_id, user=request.user.id, score=second_type)
             tscore.delete()
-        except:
+        except PostCommentScore.DoesNotExist:
             tscore = None
         PostCommentScore.objects.create(comment=comment, user=request.user, score=type)
         messages.success(request, 'امتیاز شما با موفقیت برای کامنت اعمال شد')
