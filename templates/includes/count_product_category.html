@@ -1,0 +1,9 @@
+{% for category in categories_navbar %}
+<div class="item">
+    <a href="#" class="promotion-category">
+        <img src="{{ category.picture.url }}" alt="">
+        <h4 class="promotion-category-name">{{ category.title }}</h4>
+        <h6 class="promotion-category-quantity">{{ category.products_count }} کالا</h6>
+    </a>
+</div>
+{% endfor %}
