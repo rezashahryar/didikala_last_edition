@@ -190,6 +190,7 @@ class Question(models.Model):
     datetime_created = models.DateTimeField(_('datetime_created'), auto_now_add=True, null=True, blank=True)
 
     class Meta:
+        ordering = ('-datetime_created', )
         verbose_name = _('سوال')
         verbose_name_plural = _('سوالات')
 

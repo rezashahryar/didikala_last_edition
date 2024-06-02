@@ -46,3 +46,6 @@ class SubSubProductCategory(admin.ModelAdmin):
 @admin.register(models.SetProductProperty)
 class SetProductProperty(admin.ModelAdmin):
     list_display = ['property', 'value']
+
+
+admin.site.register(models.Question)

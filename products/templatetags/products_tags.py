@@ -1,5 +1,5 @@
 from django import template
-from comments.models import ProductCommentScore
+from comments.models import ProductCommentScore, ProductComment
 
 register = template.Library()
 
