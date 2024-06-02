@@ -173,12 +173,12 @@
                                                         {% endif %}
                                                     </div>
                                                 </div>
-                                                <a class="product-thumb" href="shop-single.html">
+                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
                                                     <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                                 </a>
                                                 <div class="product-card-body">
                                                     <h5 class="product-title">
-                                                        <a href="shop-single.html">{{ product.title }}</a>
+                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                                     </h5>
                                                     <a class="product-meta" href="shop-categories.html">{{ product.category }}</a>
                                                     <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
@@ -220,12 +220,12 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <a class="product-thumb" href="shop-single.html">
+                                        <a class="product-thumb" href="{{ product.get_absolute_url }}">
                                             <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                         </a>
                                         <div class="product-card-body">
                                             <h5 class="product-title">
-                                                <a href="shop-single.html">{{ product.title }}</a>
+                                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                             </h5>
                                             <a class="product-meta" href="shop-categories.html">{{ product.category }}</a>
                                             <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
@@ -335,12 +335,12 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <a class="product-thumb" href="shop-single.html">
+                                        <a class="product-thumb" href="{{ product.get_absolute_url }}">
                                             <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                         </a>
                                         <div class="product-card-body">
                                             <h5 class="product-title">
-                                                <a href="shop-single.html">{{ product.title }}</a>
+                                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                             </h5>
                                             <a class="product-meta" href="shop-categories.html">{{ product.category }}</a>
                                             <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
@@ -351,7 +351,6 @@
                             </div>
                         </div>
                         <!-- End Product-Slider -->
-
                     </div>
                 </section>
                 <!-- End Product-Slider -->
@@ -360,7 +359,7 @@
                     <div class="col-12">
                         <div class="widget-banner">
                             <a href="#">
-                                <img src="./assets/img/banner/large-banner.jpg" alt="">
+                                <img src="{% static "assets/img/banner/large-banner.jpg" %}" alt="">
                             </a>
                         </div>
                     </div>
@@ -396,12 +395,12 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <a class="product-thumb" href="shop-single.html">
+                                        <a class="product-thumb" href="{{ product.get_absolute_url }}">
                                             <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                         </a>
                                         <div class="product-card-body">
                                             <h5 class="product-title">
-                                                <a href="shop-single.html">{{ product.title }}</a>
+                                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                             </h5>
                                             <a class="product-meta" href="shop-categories.html">{{ product.category }}</a>
                                             <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
@@ -412,7 +411,6 @@
                             </div>
                         </div>
                         <!-- End Product-Slider -->
-
                     </div>
                 </section>
                 <!-- End Product-Slider -->
