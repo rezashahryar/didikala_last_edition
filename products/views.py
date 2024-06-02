@@ -10,8 +10,14 @@ class ProductDetailView(generic.DetailView):
     context_object_name = 'product'
 
     def get_object(self):
+        global product
         slug = self.kwargs.get('slug')
         product = get_object_or_404(Product, slug=slug)
 
         return product
-
+    
+    def get_template_names(self):
+        if product.available:
+            return ['products/product_detail.html']
+        else:
+            return ['products/product_not_available.html']
