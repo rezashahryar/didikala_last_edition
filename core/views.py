@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 # Create your views here.
 
 def login_view(request):
@@ -38,6 +38,32 @@ def login_view(request):
     }
 
     return render(request, 'core/login.html', context)
+
+
+def register_view(request):
+    register_form = RegisterForm()
+
+    if request.method == 'POST':
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            cd = register_form.cleaned_data
+            new_register_form = register_form.save()
+            new_register_form.username = f'user_{new_register_form.pk}'
+
+            if len(cd['username']) == 11 and cd['username'].isdigit():
+                new_register_form.mobile = cd['username']
+            elif cd['username'].find('@') and cd['username'][-4:] == '.com':
+                new_register_form.email = cd['username']
+            new_register_form.set_password(cd['password'])
+            new_register_form.save()
+        else:
+            print(register_form.errors)
+
+    context = {
+        "register_form": register_form
+    }
+
+    return render(request, 'core/register.html', context)
 
 
 class LogoutView(LoginRequiredMixin, generic.View):

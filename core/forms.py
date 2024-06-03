@@ -5,6 +5,14 @@ from .models import User
 
 # create your forms here
 
+class RegisterForm(forms.ModelForm):
+    username = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = ['password']
+
+
 class LoginForm(forms.ModelForm):
     remember_me = forms.BooleanField(required=False)
 

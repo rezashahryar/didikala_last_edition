@@ -9,14 +9,14 @@ from django.contrib.auth.admin import UserAdmin
 class CustomUserAdmin(UserAdmin):
     model = models.User
     ordering = ('username',)
-    search_fields = ('username', 'email')
+    search_fields = ('username', 'email', 'mobile', 'first_name', 'last_name')
     list_filter = ('is_active', 'is_superuser')
-    list_display = ['username', 'is_superuser', 'is_staff', 'is_active', 'email']
+    list_display = ['username', 'email', 'mobile', 'first_name', 'last_name', 'is_superuser', 'is_staff', 'is_active',]
 
     fieldsets = (
         ('Authentication', {
             "fields": (
-                'username', 'email', 'password', 'first_name', 'last_name'
+                'username', 'email', 'password', 'first_name', 'last_name', 'mobile'
             ),
         }),
         ('group permissions', {
