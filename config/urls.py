@@ -24,6 +24,7 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     path('post/', include('posts.urls')),
     path('product/', include('products.urls')),
+    path('cart/', include('cart.urls')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
 
