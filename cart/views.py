@@ -13,8 +13,14 @@ class CartDetailView(generic.ListView):
     context_object_name = 'cart'
 
     def get_queryset(self):
+        global cart
         cart = Cart(self.request)
         return cart
+    
+    def get_template_names(self):
+        if len(cart) == 0:
+            return ['cart/cart_empty.html']
+        return ['cart/cart_detail.html']
 
 
 class CartAddItemView(generic.View):
@@ -26,5 +32,14 @@ class CartAddItemView(generic.View):
 
         cart = Cart(request)
         cart.add(product, quantity, color)
+
+        return redirect('cart:cart_detail')
+    
+
+class CartDeleteItemView(generic.View):
+
+    def get(self, request, id):
+        cart = Cart(request)
+        cart.delete(id)
 
         return redirect('cart:cart_detail')
