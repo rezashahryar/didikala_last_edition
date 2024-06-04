@@ -18,7 +18,7 @@ class CartDetailView(generic.ListView):
         return cart
     
     def get_template_names(self):
-        if len(cart) == 0:
+        if len(self.get_queryset()) == 0:
             return ['cart/cart_empty.html']
         return ['cart/cart_detail.html']
 

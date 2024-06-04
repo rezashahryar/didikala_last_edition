@@ -1,5 +1,6 @@
 {% load static %}
 {% load page_tags %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="fa">
@@ -63,23 +64,23 @@
                             <div class="search-area dt-sl">
                                 <form action="" class="search">
                                     <input type="text"
-                                        placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
+                                        placeholder="{% trans "نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…" %}">
                                     <i class="far fa-search search-icon"></i>
                                     <button class="close-search-result" type="button"><i
                                             class="mdi mdi-close"></i></button>
                                     <div class="search-result">
                                         <ul>
                                             <li>
-                                                <a href="#">موبایل</a>
+                                                <a href="#">{% trans "موبایل" %}</a>
                                             </li>
                                             <li>
-                                                <a href="#">مد و پوشاک</a>
+                                                <a href="#">{% trans "مد و پوشاک" %}</a>
                                             </li>
                                             <li>
-                                                <a href="#">میکروفن</a>
+                                                <a href="#">{% trans "میکروفن" %}</a>
                                             </li>
                                             <li>
-                                                <a href="#">میز تلویزیون</a>
+                                                <a href="#">{% trans "میز تلویزیون" %}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -92,28 +93,28 @@
                                     {% if user.is_authenticated %}
                                         <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
-                                            <span class="label-dropdown">حساب کاربری</span>
+                                            <span class="label-dropdown">{% trans "حساب کاربری" %}</span>
                                             <i class="mdi mdi-account-circle-outline"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
                                             <a class="dropdown-item" href="#">
-                                                <i class="mdi mdi-account-card-details-outline"></i>پروفایل
+                                                <i class="mdi mdi-account-card-details-outline"></i>{% trans "پروفایل" %}
                                             </a>
                                             <a class="dropdown-item" href="#">
                                                 <span class="float-left badge badge-dark">۴</span>
-                                                <i class="mdi mdi-comment-text-outline"></i>پیغام ها
+                                                <i class="mdi mdi-comment-text-outline"></i>{% trans "پیغام ها" %}
                                             </a>
                                             <a class="dropdown-item" href="#">
-                                                <i class="mdi mdi-account-edit-outline"></i>ویرایش حساب کاربری
+                                                <i class="mdi mdi-account-edit-outline"></i>{% trans "ویرایش حساب کاربری" %}
                                             </a>
                                             <div class="dropdown-divider" role="presentation"></div>
                                             <a class="dropdown-item" href="{% url "core:logout" %}">
-                                                <i class="mdi mdi-logout-variant"></i>خروج
+                                                <i class="mdi mdi-logout-variant"></i>{% trans "خروج" %}
                                             </a>
                                         {% else %}
                                             <a class="nav-link" href="{% url "core:login" %}"
                                             aria-expanded="false">
-                                                <span class="label-dropdown">ثبت نام</span>
+                                                <span class="label-dropdown">{% trans "ثبت نام" %}</span>
                                                 <i class="mdi mdi-account-circle-outline"></i>
                                             </a>
                                         {% endif %}
@@ -134,134 +135,90 @@
                     <nav class="main-menu d-flex justify-content-md-between justify-content-end dt-sl">
                         <ul class="list hidden-sm">
                             <li class="list-item category-list">
-                                <a href="#"><i class="fal fa-bars ml-1"></i>دسته بندی کالاها</a>
+                                <a href="#"><i class="fal fa-bars ml-1"></i>{% trans "دسته بندی کالاها" %}</a>
                                 {% get_categories %}
                             </li>
                             <!-- dropdown-menu -->
                             {% get_categories_navbar %}
                             <!-- dropdown-menu -->
                             <li class="list-item mr-2">
-                                <a class="nav-link" href="{% url "posts:post_list" %}">مقالات</a>
+                                <a class="nav-link" href="{% url "posts:post_list" %}">{% trans "مقالات" %}</a>
                             </li>
                         </ul>
                         <div class="nav mr-auto">
                             <div class="nav-item cart--wrapper">
                                 <a class="nav-link" href="#">
-                                    <span class="label-dropdown">سبد خرید</span>
+                                    <span class="label-dropdown">{% trans "سبد خرید" %}</span>
                                     <i class="mdi mdi-cart-outline"></i>
-                                    <span class="count">2</span>
+                                    <span class="count">{{ cart|length }}</span>
                                 </a>
                                 <div class="header-cart-info">
                                     <div class="header-cart-info-header">
                                         <div class="header-cart-info-count">
-                                            3 کالا
+                                            {{ cart|length }} {% trans "کالا" %}
                                         </div>
                                         <a href="#" class="header-cart-info-link">
-                                            <span>مشاهده سبد خرید</span>
+                                            <span>{% trans "مشاهده سبد خرید" %}</span>
                                         </a>
                                     </div>
+                                    {% if cart %}
                                     <ul class="header-basket-list do-nice-scroll">
+                                        {% for item in cart %}
                                         <li class="cart-item">
-                                            <a href="#" class="header-basket-list-item">
+                                            <a href="{{ item.product.get_absolute_url }}" class="header-basket-list-item">
                                                 <div class="header-basket-list-item-image">
-                                                    <img src="{% static 'assets/img/cart/1.jpg' %}" alt="">
+                                                    <img src="{{ item.product.cover.url }}" alt="">
                                                 </div>
                                                 <div class="header-basket-list-item-content">
                                                     <p class="header-basket-list-item-title">
-                                                        گوشی موبایل سامسونگ مدل Galaxy A30 SM-A305F/DS دو سیم کارت ظرفیت
-                                                        64 گیگابایت
+                                                        {{ item.product.title }}
                                                     </p>
                                                     <div class="header-basket-list-item-footer">
                                                         <div class="header-basket-list-item-props">
                                                             <span class="header-basket-list-item-props-item">
-                                                                1 x
+                                                                {{ item.quantity }} x
                                                             </span>
                                                             <span class="header-basket-list-item-props-item">
                                                                 <div class="header-basket-list-item-color-badge"
-                                                                    style="background: #2196f3"></div>
-                                                                آبی
+                                                                    style="background: {{ item.color.code_of_color }}"></div>
+                                                                {{ item.color }}
                                                             </span>
                                                         </div>
-                                                        <button class="header-basket-list-item-remove">
+                                                        <form action="{% url "cart:cart_delete_item" item.unique_id %}" method="GET">
+                                                        <button type="submit" class="header-basket-list-item-remove">
                                                             <i class="far fa-trash-alt"></i>
                                                         </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </a>
                                         </li>
-                                        <li class="cart-item">
-                                            <a href="#" class="header-basket-list-item">
-                                                <div class="header-basket-list-item-image">
-                                                    <img src="{% static 'assets/img/cart/2.jpg' %}" alt="">
-                                                </div>
-                                                <div class="header-basket-list-item-content">
-                                                    <p class="header-basket-list-item-title">
-                                                        گوشی موبایل هوآوی مدل Y9 2019 JKM-LX1 دو سیم کارت ظرفیت 64
-                                                        گیگابایت
-                                                    </p>
-                                                    <div class="header-basket-list-item-footer">
-                                                        <div class="header-basket-list-item-props">
-                                                            <span class="header-basket-list-item-props-item">
-                                                                1 x
-                                                            </span>
-                                                            <span class="header-basket-list-item-props-item">
-                                                                <div class="header-basket-list-item-color-badge"
-                                                                    style="background: #212121"></div>
-                                                                سفید
-                                                            </span>
-                                                        </div>
-                                                        <button class="header-basket-list-item-remove">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="cart-item">
-                                            <a href="#" class="header-basket-list-item">
-                                                <div class="header-basket-list-item-image">
-                                                    <img src="{% static 'assets/img/cart/3.jpg' %}" alt="">
-                                                </div>
-                                                <div class="header-basket-list-item-content">
-                                                    <p class="header-basket-list-item-title">
-                                                        گوشی موبایل سامسونگ مدل Galaxy A70 SM-A705FN/DS دو سیم‌کارت
-                                                        ظرفیت 128 گیگابایت
-                                                    </p>
-                                                    <div class="header-basket-list-item-footer">
-                                                        <div class="header-basket-list-item-props">
-                                                            <span class="header-basket-list-item-props-item">
-                                                                1 x
-                                                            </span>
-                                                            <span class="header-basket-list-item-props-item">
-                                                                <div class="header-basket-list-item-color-badge"
-                                                                    style="background: #FFFFFF"></div>
-                                                                سفید
-                                                            </span>
-                                                        </div>
-                                                        <button class="header-basket-list-item-remove">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
                                     <div class="header-cart-info-footer">
                                         <div class="header-cart-info-total">
-                                            <span class="header-cart-info-total-text">مبلغ قابل پرداخت:</span>
+                                            <span class="header-cart-info-total-text">{% trans "مبلغ قابل پرداخت:" %}</span>
                                             <p class="header-cart-info-total-amount">
                                                 <span class="header-cart-info-total-amount-number">
-                                                    9,500,000 <span>تومان</span></span>
+                                                    9,500,000 <span>{% trans "تومان" %}</span></span>
                                             </p>
                                         </div>
 
                                         <div>
                                             <a href="#" class="header-cart-info-submit">
-                                                ثبت سفارش
+                                                {% trans "ثبت سفارش" %}
                                             </a>
                                         </div>
                                     </div>
+                                    {% else %}
+                                    <ul class="header-basket-list do-nice-scroll">
+                                        <p class="mt-3 aler alert-danger" style="text-align:center;">
+                                            {% trans "سبد خرید شما خالی است" %}
+                                        </p>
+                                    </ul>
+                                    {% endif %}
                                 </div>
+
                             </div>
                         </div>
                         <button class="btn-menu">
@@ -279,7 +236,7 @@
                             </div>
                             <div class="search-box-side-menu dt-sl text-center mt-2 mb-3">
                                 <form action="">
-                                    <input type="text" name="s" placeholder="جستجو کنید...">
+                                    <input type="text" name="s" placeholder="{% trans "جستجو کنید..." %}">
                                     <i class="mdi mdi-magnify"></i>
                                 </form>
                             </div>
@@ -308,7 +265,7 @@
                                 </li>
                                 {% endfor %}
                                 <li>
-                                    <a href="{% url "posts:post_list" %}">مقالات</a>
+                                    <a href="{% url "posts:post_list" %}">{% trans "مقالات" %}</a>
                                 </li>
                             </ul>
                         </div>
@@ -329,8 +286,11 @@
  <!-- Start footer -->
  <footer class="main-footer dt-sl">
     <div class="back-to-top">
-        <a href="#"><span class="icon"><i class="mdi mdi-chevron-up"></i></span> <span>بازگشت به
-                بالا</span></a>
+        <a href="#"><span class="icon"><i class="mdi mdi-chevron-up"></i></span>
+            <span>
+            {% trans "بازگشت به بالا" %}
+            </span>
+        </a>
     </div>
     <div class="container main-container">
         <div class="footer-services">
@@ -339,31 +299,31 @@
                     <a href="#" target="_blank">
                         <img src="{% static 'assets/img/svg/delivery.svg' %}">
                     </a>
-                    <p>تحویل اکسپرس</p>
+                    <p>{% trans "تحویل اکسپرس" %}</p>
                 </div>
                 <div class="service-item col">
                     <a href="#" target="_blank">
                         <img src="{% static 'assets/img/svg/contact-us.svg' %}">
                     </a>
-                    <p>پشتیبانی 24 ساعته</p>
+                    <p>{% trans "پشتیبانی 24 ساعته" %}</p>
                 </div>
                 <div class="service-item col">
                     <a href="#" target="_blank">
                         <img src="{% static 'assets/img/svg/payment-terms.svg' %}">
                     </a>
-                    <p>پرداخت درمحل</p>
+                    <p>{% trans "پرداخت درمحل" %}</p>
                 </div>
                 <div class="service-item col">
                     <a href="#" target="_blank">
                         <img src="{% static 'assets/img/svg/return-policy.svg' %}">
                     </a>
-                    <p>۷ روز ضمانت بازگشت</p>
+                    <p>{% trans "۷ روز ضمانت بازگشت" %}</p>
                 </div>
                 <div class="service-item col">
                     <a href="#" target="_blank">
                         <img src="{% static 'assets/img/svg/origin-guarantee.svg' %}">
                     </a>
-                    <p>ضمانت اصل بودن کالا</p>
+                    <p>{% trans "ضمانت اصل بودن کالا" %}</p>
                 </div>
             </div>
         </div>
@@ -372,17 +332,17 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="widget-menu widget card">
                         <header class="card-header">
-                            <h3 class="card-title">راهنمای خرید از تاپ کالا</h3>
+                            <h3 class="card-title">{% trans "راهنمای خرید از تاپ کالا" %}</h3>
                         </header>
                         <ul class="footer-menu">
                             <li>
-                                <a href="#">نحوه ثبت سفارش</a>
+                                <a href="#">{% trans "نحوه ثبت سفارش" %}</a>
                             </li>
                             <li>
-                                <a href="#">رویه ارسال سفارش</a>
+                                <a href="#">{% trans "رویه ارسال سفارش" %}</a>
                             </li>
                             <li>
-                                <a href="#">شیوه‌های پرداخت</a>
+                                <a href="#">{% trans "شیوه‌های پرداخت" %}</a>
                             </li>
                         </ul>
                     </div>
@@ -390,20 +350,20 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="widget-menu widget card">
                         <header class="card-header">
-                            <h3 class="card-title">خدمات مشتریان</h3>
+                            <h3 class="card-title">{% trans "خدمات مشتریان" %}</h3>
                         </header>
                         <ul class="footer-menu">
                             <li>
-                                <a href="{% url "pages:page_faq_question" %}">پاسخ به پرسش‌های متداول</a>
+                                <a href="{% url "pages:page_faq_question" %}">{% trans "پاسخ به پرسش‌های متداول" %}</a>
                             </li>
                             <li>
-                                <a href="{% url "pages:page_faq_category" %}">رویه‌های بازگرداندن کالا</a>
+                                <a href="{% url "pages:page_faq_category" %}">{% trans "رویه‌های بازگرداندن کالا" %}</a>
                             </li>
                             <li>
-                                <a href="{% url "pages:page_faq" %}">شرایط استفاده</a>
+                                <a href="{% url "pages:page_faq" %}">{% trans "شرایط استفاده" %}</a>
                             </li>
                             <li>
-                                <a href="{% url "pages:page_privacy" %}">حریم خصوصی</a>
+                                <a href="{% url "pages:page_privacy" %}">{% trans "حریم خصوصی" %}</a>
                             </li>
                         </ul>
                     </div>
@@ -411,38 +371,38 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="widget-menu widget card">
                         <header class="card-header">
-                            <h3 class="card-title">با تاپ کالا</h3>
+                            <h3 class="card-title">{% trans "با تاپ کالا" %}</h3>
                         </header>
                         <ul class="footer-menu">
                             <li>
-                                <a href="#">فروش در تاپ کالا</a>
+                                <a href="#">{% trans "فروش در تاپ کالا" %}</a>
                             </li>
                             <li>
-                                <a href="#">همکاری با سازمان‌ها</a>
+                                <a href="#">{% trans "همکاری با سازمان‌ها" %}</a>
                             </li>
                             <li>
-                                <a href="#">فرصت‌های شغلی</a>
+                                <a href="#">{% trans "فرصت‌های شغلی" %}</a>
                             </li>
                             <li>
-                                <a href="#">تماس با تاپ کالا</a>
+                                <a href="#">{% trans "تماس با تاپ کالا" %}</a>
                             </li>
                             <li>
-                                <a href="#">درباره تاپ کالا</a>
+                                <a href="#">{% trans "درباره تاپ کالا" %}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="newsletter">
-                        <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>
+                        <p>{% trans "از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:" %}</p>
                         <form action="">
                             <input type="email" class="form-control"
-                                placeholder="آدرس ایمیل خود را وارد کنید...">
+                                placeholder="{% trans "آدرس ایمیل خود را وارد کنید..." %}">
                             <input type="submit" class="btn btn-primary" value="ارسال">
                         </form>
                     </div>
                     <div class="socials">
-                        <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
+                        <p>{% trans "ما را در شبکه های اجتماعی دنبال کنید." %}</p>
                         <div class="footer-social">
                             <ul class="text-center">
                                 <li><a href="#"><i class="mdi mdi-instagram"></i></a></li>
@@ -458,7 +418,7 @@
         <div class="info">
             <div class="row">
                 <div class="col-12 text-right">
-                    <span>هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم.</span>
+                    <span>{% trans "هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم." %}</span>
                 </div>
             </div>
         </div>
@@ -467,15 +427,17 @@
         <div class="container main-container">
             <div class="row">
                 <div class="site-description col-12 col-lg-7">
-                    <h1 class="site-title">فروشگاه اینترنتی تاپ کالا، بررسی، انتخاب و خرید آنلاین</h1>
+                    <h1 class="site-title">{% trans "فروشگاه اینترنتی تاپ کالا، بررسی، انتخاب و خرید آنلاین" %}</h1>
                     <p>
+                        {% trans """
                         تاپ کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با
-                        پایبندی به سه اصل کلیدی، پرداخت در
-                        محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های
-                        معتبر جهان، به بزرگ‌ترین فروشگاه
-                        اینترنتی ایران تبدیل شود. به محض ورود به تاپ کالا با یک سایت پر از کالا رو به رو
-                        می‌شوید! هر آنچه که نیاز دارید و به
-                        ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.
+                            پایبندی به سه اصل کلیدی، پرداخت در
+                            محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های
+                            معتبر جهان، به بزرگ‌ترین فروشگاه
+                            اینترنتی ایران تبدیل شود. به محض ورود به تاپ کالا با یک سایت پر از کالا رو به رو
+                            می‌شوید! هر آنچه که نیاز دارید و به
+                            ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.
+                        """ %}
                     </p>
                 </div>
                 <div class="symbol col-12 col-lg-5">

@@ -85,7 +85,7 @@ class ProductDetailView(generic.DetailView):
         return product
     
     def get_template_names(self):
-        if product.available or product.inventory > 0:
+        if product.available and product.inventory > 0:
             return ['products/product_detail.html']
         else:
             return ['products/product_not_available.html']
