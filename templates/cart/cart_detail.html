@@ -36,29 +36,27 @@
                                             </div>
                                             <div class="checkout-section-content-dd-k">
                                                 <div class="cart-items-dd-k">
+                                                    {% for item in cart %}
                                                     <div class="cart-item py-4 px-3">
                                                         <div class="item-thumbnail">
-                                                            <a href="#">
-                                                                <img src="./assets/img/cart/cart01.jpg" alt="item">
+                                                            <a href="{{ item.product.get_absolute_url }}">
+                                                                <img src="{{ item.product.cover.url }}" alt="item">
                                                             </a>
                                                         </div>
                                                         <div class="item-info flex-grow-1">
                                                             <div class="item-title">
                                                                 <h2>
-                                                                    <a href="#">
-                                                                        گوشی موبایل شیائومی مدل Mi 10 Lite 5G M2002J9G
-                                                                        دو
-                                                                        سیم‌ کارت
-                                                                        ظرفیت
-                                                                        128 گیگابایت</a>
+                                                                    <a href="{{ item.product.get_absolute_url }}">
+                                                                        {{ item.product.title }}
+                                                                    </a>
                                                                 </h2>
                                                             </div>
                                                             <div class="item-detail">
                                                                 <ul>
                                                                     <li>
                                                                         <span class="color"
-                                                                            style="background-color: #9E9E9E;"></span>
-                                                                        <span>خاکستری</span>
+                                                                            style="background-color: {{ item.color.code_of_color }};"></span>
+                                                                        <span>{{ item.color.title }}</span>
                                                                     </li>
                                                                     <li>
                                                                         <i class="far fa-shield-check text-muted"></i>
@@ -80,141 +78,26 @@
                                                                             <div class="num-in">
                                                                                 <span class="plus"></span>
                                                                                 <input type="text" class="in-num"
-                                                                                    value="1" readonly>
+                                                                                    value="{{ item.quantity }}" readonly>
                                                                                 <span class="minus dis"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <button class="item-remove-btn mr-3">
+                                                                        <a href="" class="item-remove-btn mr-3">
                                                                             <i class="far fa-trash-alt"></i>
                                                                             حذف
-                                                                        </button>
+                                                                        </a>
                                                                     </div>
                                                                     <div class="item-price">
-                                                                        ۱۰,۷۰۹,۰۰۰<span
-                                                                            class="text-sm mr-1">تومان</span>
+                                                                        {{ item.total_price|intcomma:False }}
+                                                                        <span class="text-sm mr-1">
+                                                                            تومان
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="cart-item py-4 px-3">
-                                                        <div class="item-thumbnail">
-                                                            <a href="#">
-                                                                <img src="./assets/img/cart/cart02.jpg" alt="item">
-                                                            </a>
-                                                        </div>
-                                                        <div class="item-info flex-grow-1">
-                                                            <div class="item-title">
-                                                                <h2>
-                                                                    <a href="#">
-                                                                        گوشی موبایل سامسونگ مدل Galaxy A11 SM-A115F/DS
-                                                                        دو
-                                                                        سیم کارت ظرفیت
-                                                                        32
-                                                                        گیگابایت با 2 گیگابایت رم</a>
-                                                                </h2>
-                                                            </div>
-                                                            <div class="item-detail">
-                                                                <ul>
-                                                                    <li>
-                                                                        <span class="color"
-                                                                            style="background-color: #000;"></span>
-                                                                        <span>مشکی</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="far fa-shield-check text-muted"></i>
-                                                                        <span>گارانتی ۱۸ ماهه</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="far fa-store-alt text-muted"></i>
-                                                                        <span>نام فروشنده</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                        <span>موجود در انبار</span>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="item-quantity--item-price">
-                                                                    <div class="item-quantity">
-                                                                        <div class="num-block">
-                                                                            <div class="num-in">
-                                                                                <span class="plus"></span>
-                                                                                <input type="text" class="in-num"
-                                                                                    value="1" readonly>
-                                                                                <span class="minus dis"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <button class="item-remove-btn mr-3">
-                                                                            <i class="far fa-trash-alt"></i>
-                                                                            حذف
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="item-price">
-                                                                        ۴,۱۶۹,۰۰۰<span class="text-sm mr-1">تومان</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cart-item py-4 px-3">
-                                                        <div class="item-thumbnail">
-                                                            <a href="#">
-                                                                <img src="./assets/img/cart/cart03.jpg" alt="item">
-                                                            </a>
-                                                        </div>
-                                                        <div class="item-info flex-grow-1">
-                                                            <div class="item-title">
-                                                                <h2>
-                                                                    <a href="#">
-                                                                        لپ تاپ 15 اینچی ایسوس مدل VivoBook K543UB -
-                                                                        MR</a>
-                                                                </h2>
-                                                            </div>
-                                                            <div class="item-detail">
-                                                                <ul>
-                                                                    <li>
-                                                                        <span class="color"
-                                                                            style="background-color: #002171;"></span>
-                                                                        <span>سرمه ای</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="far fa-shield-check text-muted"></i>
-                                                                        <span>گارانتی ۱۸ ماهه</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="far fa-store-alt text-muted"></i>
-                                                                        <span>نام فروشنده</span>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                        <span>موجود در انبار</span>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="item-quantity--item-price">
-                                                                    <div class="item-quantity">
-                                                                        <div class="num-block">
-                                                                            <div class="num-in">
-                                                                                <span class="plus"></span>
-                                                                                <input type="text" class="in-num"
-                                                                                    value="1" readonly>
-                                                                                <span class="minus dis"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <button class="item-remove-btn mr-3">
-                                                                            <i class="far fa-trash-alt"></i>
-                                                                            حذف
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="item-price">
-                                                                        ۱۵,۹۹۰,۰۰۰<span
-                                                                            class="text-sm mr-1">تومان</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
