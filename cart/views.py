@@ -4,7 +4,7 @@ from django.views import generic
 
 from products.models import Product
 
-from .cart import Cart, NextCart
+from .cart import Cart
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ class CartDetailView(generic.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['next_cart'] = NextCart(self.request)
+        # context['next_cart'] = NextCart(self.request)
         return context
     
     def get_template_names(self):
@@ -60,15 +60,15 @@ class CartDeleteItemHomePageView(generic.View):
         return redirect('pages:home')
     
 
-class AddItemToNextCart(generic.View):
+# class AddItemToNextCart(generic.View):
 
-    def post(self, request, id):
-        next_cart = NextCart(request)
-        item = request.session.get('cart').get(id)
-        product = get_object_or_404(Product, pk=item.get('id'))
-        next_cart.add(
-            product,
-            quantity=item.get('quantity'),
-            color=item.get('color')
-        )
-        return HttpResponse("hello")
+#     def post(self, request, id):
+#         next_cart = NextCart(request)
+#         item = request.session.get('cart').get(id)
+#         product = get_object_or_404(Product, pk=item.get('id'))
+#         next_cart.add(
+#             product,
+#             quantity=item.get('quantity'),
+#             color=item.get('color')
+#         )
+#         return HttpResponse("hello")

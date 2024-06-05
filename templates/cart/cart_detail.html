@@ -91,13 +91,13 @@
                                                                             </button>
                                                                         </form>
 
-                                                                        <form action="{% url "cart:add_item_to_next_cart" item.unique_id %}" method="POST">
+                                                                        {% comment %} <form action="{% url "cart:add_item_to_next_cart" item.unique_id %}" method="POST">
                                                                             {% csrf_token %}
                                                                             <button type="submit" class="item-remove-btn mr-3">
-                                                                                {% comment %} <i class="far fa-trash-alt"></i> {% endcomment %}
+                                                                                {% comment %} <i class="far fa-trash-alt"></i> 
                                                                                 {% trans "افزودن به سبد خرید بعدی" %}
                                                                             </button>
-                                                                        </form>
+                                                                        </form> {% endcomment %}
                                                                     </div>
                                                                     <div class="item-price">
                                                                         {{ item.total_price|intcomma:False }}
@@ -118,11 +118,16 @@
                                         <div class="dt-sn dt-sn--box border mb-2">
                                             <ul class="checkout-summary-summary">
                                                 <li>
-                                                    <span>{% trans "مبلغ کل" %} ({{ cart|length }} {% trans "کالا" %})</span><span>۱۶,۸۹۷,۰۰۰ تومان</span>
+                                                    <span>{% trans "مبلغ کل" %} ({{ cart|length }} {% trans "کالا" %})</span>
+                                                    <span>{{ cart.get_total_price_of_product_without_discount|intcomma:False }} {% trans "تومان" %}</span>
                                                 </li>
                                                 <li class="checkout-summary-discount">
-                                                    <span>{% trans "سود شما از خرید" %}</span><span><span>(۱٪)</span>۲۰۰,۰۰۰
-                                                        تومان</span>
+                                                    <span>{% trans "سود شما از خرید" %}</span>
+                                                    <span>
+                                                        <span>({{ cart.get_sum_discount }}٪)</span>
+                                                        {{ cart.get_price_discount_of_product|intcomma:False }}
+                                                        {% trans "تومان" %}
+                                                    </span>
                                                 </li>
                                                 <li>
                                                     <span>{% trans "هزینه ارسال" %}<span class="help-sn" data-toggle="tooltip"
@@ -136,7 +141,7 @@
                                                             data-html="true" data-placement="bottom"
                                                             title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>با امتیازهای خود در باشگاه مشتریان دیجی کالا (دیجی کلاب) از بین جوایز متنوع انتخاب کنید.</p></div>">
                                                             <span class="mdi mdi-information-outline"></span>
-                                                        </span></span><span><span>۱۵۰+</span><span> {% trans "امتیاز" %}</span></span>
+                                                        </span></span><span><span>{{ cart.get_score|intcomma:False }}</span><span> {% trans "امتیاز" %}</span></span>
                                                 </li>
                                             </ul>
                                             <div class="checkout-summary-devider">
@@ -145,7 +150,7 @@
                                             <div class="checkout-summary-content">
                                                 <div class="checkout-summary-price-title">{% trans "مبلغ قابل پرداخت:" %}</div>
                                                 <div class="checkout-summary-price-value">
-                                                    <span class="checkout-summary-price-value-amount">۱۶,۶۹۷,۰۰۰</span>
+                                                    <span class="checkout-summary-price-value-amount">{{ cart.get_total_price|intcomma:False }}</span>
                                                     {% trans "تومان" %}
                                                 </div>
                                                 <a href="#" class="mb-2 d-block">
@@ -156,10 +161,7 @@
                                                 </a>
                                                 <div>
                                                     <span>
-                                                        {% trans """
-                                                        کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
-                                                        مراحل بعدی را تکمیل کنید.
-                                                        """ %}
+                                                        {% trans "کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید." %}
                                                     </span><span class="help-sn" data-toggle="tooltip" data-html="true"
                                                         data-placement="bottom"
                                                         title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی‌کالا هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">

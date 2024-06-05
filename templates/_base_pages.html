@@ -97,14 +97,14 @@
                                             <i class="mdi mdi-account-circle-outline"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
-                                            <a class="dropdown-item" href="{% url "profiles:profile_view" %}">
+                                            <a class="dropdown-item" href="#">
                                                 <i class="mdi mdi-account-card-details-outline"></i>{% trans "پروفایل" %}
                                             </a>
                                             <a class="dropdown-item" href="#">
                                                 <span class="float-left badge badge-dark">۴</span>
                                                 <i class="mdi mdi-comment-text-outline"></i>{% trans "پیغام ها" %}
                                             </a>
-                                            <a class="dropdown-item" href="{% url "profiles:profile_edit" %}">
+                                            <a class="dropdown-item" href="#">
                                                 <i class="mdi mdi-account-edit-outline"></i>{% trans "ویرایش حساب کاربری" %}
                                             </a>
                                             <div class="dropdown-divider" role="presentation"></div>
@@ -112,11 +112,11 @@
                                                 <i class="mdi mdi-logout-variant"></i>{% trans "خروج" %}
                                             </a>
                                         {% else %}
-                                            <a class="nav-link" href="{% url "core:login" %}"
-                                            aria-expanded="false">
+                                            <a class="nav-link" href="{% url "core:login" %}">
                                                 <span class="label-dropdown">{% trans "ثبت نام" %}</span>
                                                 <i class="mdi mdi-account-circle-outline"></i>
                                             </a>
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
                                         {% endif %}
                                         </a>
                                     </div>
