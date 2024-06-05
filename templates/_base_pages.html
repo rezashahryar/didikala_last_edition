@@ -97,14 +97,14 @@
                                             <i class="mdi mdi-account-circle-outline"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="{% url "profiles:profile_view" %}">
                                                 <i class="mdi mdi-account-card-details-outline"></i>{% trans "پروفایل" %}
                                             </a>
                                             <a class="dropdown-item" href="#">
                                                 <span class="float-left badge badge-dark">۴</span>
                                                 <i class="mdi mdi-comment-text-outline"></i>{% trans "پیغام ها" %}
                                             </a>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="{% url "profiles:profile_edit" %}">
                                                 <i class="mdi mdi-account-edit-outline"></i>{% trans "ویرایش حساب کاربری" %}
                                             </a>
                                             <div class="dropdown-divider" role="presentation"></div>

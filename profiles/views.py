@@ -1,10 +1,9 @@
 from django.shortcuts import render
-
+from django.views import generic
 # Create your views here.
 
-def profile(request):
-
-    return render(request, 'profiles/profile.html')
+class ProfileView(generic.TemplateView):
+    template_name = 'profiles/profile.html'
 
 
 def profile_edit_view(request):
