@@ -113,3 +113,51 @@ class Cart:
 
     def get_total_price_after_discount(self):
         return int(self.get_total_price() - self.get_discount())
+    
+
+class NextCart:
+    def __init__(self, request):
+        self.session = request.session
+        self.request = request
+
+        cart = self.session.get('next_cart')
+
+        if not cart:
+            cart = self.session['next_cart'] = {}
+
+        self.cart = cart
+
+    def unique_id_generator(self, product_name, slug, color):
+        result = f'{slug}-{color}-{product_name}'
+        return result
+
+    def add(self, product, quantity, color, replace_current_quantity=False):
+        unique = self.unique_id_generator(product.title, product.slug, color)
+
+        if unique not in self.cart:
+            self.cart[unique] = {'quantity': 0, 'color': color, 'id': str(product.id)}
+
+        if replace_current_quantity:
+            self.cart[unique]['quantity'] = int(quantity)
+        else:
+            self.cart[unique]['quantity'] += int(quantity)
+        messages.success(self.request, _(f'محصول {product.title} به سبد خرید شما اضافه شد'))
+
+        self.save()
+
+    def save(self):
+        self.session.modified = True
+
+    def __iter__(self):
+        cart = self.cart.copy()
+
+        for item in cart.values():
+            product = Product.objects.get(id=int(item['id']))
+
+            item['product'] = product
+            if product.discount:
+                item['total_price'] = int(item['quantity']) * int(item['product'].get_product_price_after_discount())
+            else:
+                item['total_price'] = int(item['quantity']) * int(item['product'].price)
+            item['unique_id'] = self.unique_id_generator(product.title, product.slug, item['color'])
+            yield item

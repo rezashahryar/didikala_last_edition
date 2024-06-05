@@ -157,7 +157,7 @@
                                         <div class="header-cart-info-count">
                                             {{ cart|length }} {% trans "کالا" %}
                                         </div>
-                                        <a href="#" class="header-cart-info-link">
+                                        <a href="{% url "cart:cart_detail" %}" class="header-cart-info-link">
                                             <span>{% trans "مشاهده سبد خرید" %}</span>
                                         </a>
                                     </div>
@@ -184,10 +184,11 @@
                                                                 {{ item.color }}
                                                             </span>
                                                         </div>
-                                                        <form action="{% url "cart:cart_delete_item" item.unique_id %}" method="GET">
-                                                        <button type="submit" class="header-basket-list-item-remove">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
+                                                        <form action="{% url "cart:cart_delete_item_home_page" item.unique_id %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="header-basket-list-item-remove">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -429,15 +430,7 @@
                 <div class="site-description col-12 col-lg-7">
                     <h1 class="site-title">{% trans "فروشگاه اینترنتی تاپ کالا، بررسی، انتخاب و خرید آنلاین" %}</h1>
                     <p>
-                        {% trans """
-                        تاپ کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با
-                            پایبندی به سه اصل کلیدی، پرداخت در
-                            محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های
-                            معتبر جهان، به بزرگ‌ترین فروشگاه
-                            اینترنتی ایران تبدیل شود. به محض ورود به تاپ کالا با یک سایت پر از کالا رو به رو
-                            می‌شوید! هر آنچه که نیاز دارید و به
-                            ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.
-                        """ %}
+                        {% trans "تاپ کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به سه اصل کلیدی، پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض ورود به تاپ کالا با یک سایت پر از کالا رو به رو می‌شوید! هر آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد." %}
                     </p>
                 </div>
                 <div class="symbol col-12 col-lg-5">

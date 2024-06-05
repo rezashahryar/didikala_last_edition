@@ -13,7 +13,7 @@ from tinymce.models import HTMLField
 
 class Color(models.Model):
     title = models.CharField(_('عنوان'), max_length=100)
-    code_of_color = models.CharField(max_length=100, help_text=_('لطفا در این بخش کد رنگ را وارد کنید به این شکل : FFFFFF#'), blank=True)
+    code_of_color = models.CharField(max_length=100, help_text=_('لطفا کد رنگ را بدون علامت # وارد کنید'), blank=True)
 
     class Meta:
         verbose_name = _('color')
