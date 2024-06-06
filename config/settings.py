@@ -164,3 +164,11 @@ INTERNAL_IPS = [
 
 # config custom user model
 AUTH_USER_MODEL = 'core.User'
+
+# config send gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'reza.shahryarineya7851@gmail.com'
+EMAIL_HOST_PASSWORD = 'wxmx aseh pyyp lpfr '
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
