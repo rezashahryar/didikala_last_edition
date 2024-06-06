@@ -26,4 +26,5 @@ urlpatterns = [
     ),
     path("question/<int:pk>/", views.question, name="question"),
     path("answer/<int:pk>/<int:qpk>", views.answer, name="answer"),
+    path('discounted/', views.ProductDiscountedView.as_view(), name='products_discounted'),
 ]

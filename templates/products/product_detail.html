@@ -330,7 +330,7 @@
                                                         <div class="product-seller-price-info">
                                                             {% if product.get_discount %}
                                                             <div class="product-seller-price-prev">
-                                                                {{ product.price }}
+                                                                {{ product.price|intcomma:False }}
                                                             </div>
                                                             <div class="product-seller-price-off">
                                                                 {{ product.discount }}٪

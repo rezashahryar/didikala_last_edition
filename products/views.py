@@ -122,3 +122,9 @@ def answer(request, pk, qpk):
             new_form.parent = question_id
             new_form.save()
             return redirect('products:product_detail', product.slug)
+        
+
+class ProductDiscountedView(generic.ListView):
+    queryset = Product.objects.filter(discount__gt=0).select_related('category')
+    template_name = 'products/product_discounted.html'
+    context_object_name = 'products'

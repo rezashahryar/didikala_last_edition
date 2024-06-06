@@ -1,8 +1,24 @@
+from django.shortcuts import redirect, render
 from django.views import generic
-from django.db.models import Prefetch
+from django.views.decorators.http import require_POST
+from django.contrib import messages
+
 from products.models import ProductCategory, SubProductCategory, Product
+
+from .forms import UserEmailForm
 # Create your views here.
 
+@require_POST
+def save_email_users(request):
+    form = UserEmailForm(request.POST)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'ایمیل شما با موفقیت در سیستم ثبت شد.')
+    else:
+        print(form.errors)
+
+    return redirect('pages:home')
 
 class HomePageView(generic.TemplateView):
     template_name = 'pages/home.html'
