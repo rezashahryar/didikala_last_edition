@@ -12,6 +12,17 @@ class RegisterForm(forms.ModelForm):
         model = User
         fields = ['password']
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        try:
+            user = User.objects.get(Q(mobile=username) | Q(email=username))
+            raise forms.ValidationError("کاربری از قبل با این ایمیل یا موبایل درسایت موجود است")
+        except User.DoesNotExist:
+            ...
+        
+        return username
+
 
 class LoginForm(forms.ModelForm):
     remember_me = forms.BooleanField(required=False)

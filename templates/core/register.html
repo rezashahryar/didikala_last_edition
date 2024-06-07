@@ -56,6 +56,9 @@
                                         placeholder="ایمیل یا شماره موبایل خود را وارد نمایید">
                                     <i class="mdi mdi-account-circle-outline"></i>
                                 </div>
+                                {% for error in register_form.username.errors %}
+                                <p class="alert alert-danger mt-3" style="text-align:center;">{{ error }}</p>
+                                {% endfor %}
                                 <div class="form-row-title">
                                     <h3>رمز عبور</h3>
                                 </div>

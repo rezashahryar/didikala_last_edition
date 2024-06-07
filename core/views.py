@@ -7,7 +7,7 @@ from django.utils.crypto import get_random_string
 
 from .forms import LoginForm, RegisterForm
 from .models import ActivationViaEmail
-from.send_mail import send_activation_email
+from .send_mail import send_activation_email
 # Create your views here.
 
 def login_view(request):
@@ -34,7 +34,7 @@ def login_view(request):
             print("valid")
         else:
             print("not valid")
-            print(login_form.errors)
+            # print(login_form.errors)
 
     context = {
         "login_form": login_form,
