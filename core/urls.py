@@ -8,5 +8,6 @@ app_name = 'core'
 urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
-    path('register/', views.register_view, name='register')
+    path('register/', views.register_view, name='register'),
+    path('activate/<code>/', views.ActivateView.as_view(), name='activate'),
 ]
