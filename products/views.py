@@ -19,13 +19,22 @@ class ProductsOfCategoryListView(generic.ListView):
         category_slug = self.kwargs.get('cat_slug')
         category_object = get_object_or_404(ProductCategory, slug=category_slug)
 
-        products = get_list_or_404(Product, category=category_object)
+        products = Product.objects.filter(category=category_object)
 
         return products
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = category_object
+        context['most_visited_products'] = Product.objects.filter(category=category_object) \
+            .order_by('-counted_views').select_related('category')
+        context['newest_products'] = Product.objects.filter(category=category_object) \
+            .order_by('-datetime_created').select_related('category')
+        context['best_seller_products'] = Product.objects.filter(category=category_object) \
+            .order_by('-sales_number').select_related('category')
+        context['cheapest_products'] = Product.objects.filter(category=category_object) \
+            .order_by('price').select_related('category')
+        context['most_expensive_products'] = Product.objects.filter(category=category_object) \
+            .order_by('-price').select_related('category')
 
         return context
     
@@ -35,12 +44,28 @@ class ProductOfSubCategoryListView(generic.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        global sub_category_object
         sub_cat = self.kwargs.get('sub_category')
         sub_category_object = get_object_or_404(SubProductCategory, slug=sub_cat)
 
         products = get_list_or_404(Product, sub_category=sub_category_object)
 
         return products
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['most_visited_products'] = Product.objects.filter(sub_category=sub_category_object) \
+            .order_by('-counted_views').select_related('category')
+        context['newest_products'] = Product.objects.filter(sub_category=sub_category_object) \
+            .order_by('-datetime_created').select_related('category')
+        context['best_seller_products'] = Product.objects.filter(sub_category=sub_category_object) \
+            .order_by('-sales_number').select_related('category')
+        context['cheapest_products'] = Product.objects.filter(sub_category=sub_category_object) \
+            .order_by('price').select_related('category')
+        context['most_expensive_products'] = Product.objects.filter(sub_category=sub_category_object) \
+            .order_by('-price').select_related('category')
+
+        return context
 
 
 class ProductOfSubSubCategoryListView(generic.ListView):
@@ -48,12 +73,28 @@ class ProductOfSubSubCategoryListView(generic.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        global sub_sub_category_obj
         sub_sub_cat_slug = self.kwargs.get('sub_sub_category')
         sub_sub_category_obj = get_object_or_404(SubSubProductCategory, slug=sub_sub_cat_slug)
 
         products = get_list_or_404(Product, sub_sub_category=sub_sub_category_obj)
 
         return products
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['most_visited_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
+            .order_by('-counted_views').select_related('category')
+        context['newest_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
+            .order_by('-datetime_created').select_related('category')
+        context['best_seller_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
+            .order_by('-sales_number').select_related('category')
+        context['cheapest_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
+            .order_by('price').select_related('category')
+        context['most_expensive_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
+            .order_by('-price').select_related('category')
+
+        return context
 
 
 class ProductDetailView(generic.DetailView):
@@ -128,3 +169,12 @@ class ProductDiscountedView(generic.ListView):
     queryset = Product.objects.filter(discount__gt=0).select_related('category')
     template_name = 'products/product_discounted.html'
     context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['most_visited_products'] = self.queryset.order_by('-counted_views')
+        context['newest_products'] = self.queryset.order_by('-datetime_created')
+        context['best_seller_products'] = self.queryset.order_by('-sales_number')
+        context['cheapest_products'] = self.queryset.order_by('price')
+        context['most_expensive_products'] = self.queryset.order_by('-price')
+        return context
