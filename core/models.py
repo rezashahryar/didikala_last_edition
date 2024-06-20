@@ -15,7 +15,6 @@ class User(AbstractUser):
 
 
 class ActivationViaEmail(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    code = models.CharField(max_length=20, unique=True)
+    code = models.CharField(max_length=5)
     email = models.EmailField()

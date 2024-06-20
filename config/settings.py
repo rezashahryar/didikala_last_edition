@@ -162,6 +162,9 @@ INTERNAL_IPS = [
     # ...
 ]
 
+# authentication paths
+LOGIN_URL = 'core:login'
+
 # config custom user model
 AUTH_USER_MODEL = 'core.User'
 

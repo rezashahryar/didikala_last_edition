@@ -1,12 +1,13 @@
-from django.shortcuts import redirect, render, get_object_or_404
+import random
+
+from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.crypto import get_random_string
 
 from .forms import LoginForm, RegisterForm
-from .models import ActivationViaEmail
+from .models import ActivationViaEmail, User
 from .send_mail import send_activation_email
 # Create your views here.
 
@@ -31,10 +32,6 @@ def login_view(request):
                 if next_page:
                     return redirect(next_page)
                 return redirect('pages:home')
-            print("valid")
-        else:
-            print("not valid")
-            # print(login_form.errors)
 
     context = {
         "login_form": login_form,
@@ -50,30 +47,35 @@ def register_view(request):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             cd = register_form.cleaned_data
-            new_register_form = register_form.save()
-            new_register_form.username = f'user_{new_register_form.pk}'
+            # new_register_form = register_form.save()
+            # new_register_form.username = f'user_{new_register_form.pk}'
 
             if len(cd['username']) == 11 and cd['username'].isdigit():
-                new_register_form.mobile = cd['username']
+
+                request.session['username'] = cd.get('username')
+
             elif cd['username'].find('@') and cd['username'][-4:] == '.com':
-                new_register_form.is_active = False
-                new_register_form.email = cd['username']
+
+                request.session['username'] = cd.get('username')
+                request.session['password'] = cd.get('password')
 
                 # send email
-                code = get_random_string(20)
+                code = random.randint(10000, 99999)
                 act = ActivationViaEmail(
                     code=code,
-                    user=new_register_form
+                    email=cd.get('username')
                 )
                 act.save()
-                send_activation_email(request, new_register_form.email, code)
+                print('email*' * 40)
+                print(cd.get('username'))
+                send_activation_email(request, cd.get('username'), code)
 
-            new_register_form.set_password(cd['password'])
-            new_register_form.save()
+            # new_register_form.set_password(cd['password'])
+            # new_register_form.save()
 
-            return redirect('core:login')
+            return redirect('core:activate')
         else:
-            # print(register_form.errors)
+            print(register_form.errors)
             print('not valid')
 
     context = {
@@ -83,26 +85,42 @@ def register_view(request):
     return render(request, 'core/register.html', context)
 
 
+class VerifyCodeView(generic.View):
 
-class ActivateView(generic.View):
-    @staticmethod
-    def get(request, code):
-        act = get_object_or_404(ActivationViaEmail, code=code)
+    def get(self, request):
+        return render(request, 'core/verify_code.html')
+    
+    def post(self, request):
+        num1 = request.POST.get('num1')
+        num2 = request.POST.get('num2')
+        num3 = request.POST.get('num3')
+        num4 = request.POST.get('num4')
+        num5 = request.POST.get('num5')
 
-        # Activate profile
-        user = act.user
-        user.is_active = True
-        user.save()
+        code = f'{num1}{num2}{num3}{num4}{num5}'
 
-        # Remove the activation record
-        act.delete()
+        username = request.session.get('username')
+        password = request.session.get('password')
 
-        messages.success(request, 'فعالسازی اکانت شما با موفقیت انجام شد.')
+        if code is not None:
+            user = User()
 
-        return redirect('core:login')
+            if len(username) == 11 and username.isdigit():
+                user.mobile = username
+
+            elif username.find('@') and username[-4:] == '.com':
+                user.email = username
+
+            user.set_password(password)
+            user.save()
+            user.username = f'user_{user.pk}'
+            user.save()
+            
+        return redirect('pages:welcome_page')
 
 
 class LogoutView(LoginRequiredMixin, generic.View):
+
     def get(self, request):
         logout(request)
         messages.warning(request, 'با موفقیت از حساب کاربری خود خارج شدید')

@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#f7858d">
     <meta name="msapplication-navbutton-color" content="#f7858d">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
-    <title>didikala | Register Page</title>
+    <title>Verify code</title>
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static "assets/css/vendor/font-awesome.min.css" %}">
     <link rel="stylesheet" href="{% static "assets/css/vendor/materialdesignicons.min.css" %}">
@@ -37,56 +37,53 @@
                 <div class="row">
                     <div class="col-xl-4 col-lg-5 col-md-7 col-12 mx-auto">
                         <div class="logo-area text-center mb-3">
-                            <a href="{% url "pages:home" %}"><img src="{% static "assets/img/logo.png" %}" class="img-fluid" alt="logo"></a>
+                            <a href="#"><img src="./assets/img/logo.png" class="img-fluid" alt="logo"></a>
                         </div>
                         <div class="auth-wrapper form-ui border pt-4">
                             <div class="section-title title-wide mb-1 no-after-title-wide">
-                                <h2 class="font-weight-bold">ثبت نام</h2>
+                                <h2 class="font-weight-bold">تایید شماره</h2>
                             </div>
                             <div class="message-light">
-                                اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به ثبت‌نام مجدد با شماره همراه ندارید
+                                برای شماره همراه 09999999999 کد تایید ارسال گردید
+                                <a href="#" class="btn-link-border">
+                                    ویرایش شماره
+                                </a>
                             </div>
                             <form action="#" method="POST">
                                 {% csrf_token %}
                                 <div class="form-row-title">
-                                    <h3>ایمیل یا شماره موبایل</h3>
+                                    <h3>کد تایید را وارد کنید</h3>
                                 </div>
-                                <div class="form-row with-icon">
-                                    <input name="username" type="text" class="input-ui pr-2"
-                                        placeholder="ایمیل یا شماره موبایل خود را وارد نمایید">
-                                    <i class="mdi mdi-account-circle-outline"></i>
+                                <div class="form-row">
+                                    <div class="numbers-verify">
+                                        <div class="lines-number-input">
+                                            <input name="num1" type="text" class="line-number" maxlength="1" autofocus="">
+                                            <input name="num2" type="text" class="line-number" maxlength="1">
+                                            <input name="num3" type="text" class="line-number" maxlength="1">
+                                            <input name="num4" type="text" class="line-number" maxlength="1">
+                                            <input name="num5" type="text" class="line-number" maxlength="1">
+                                        </div>
+                                    </div>
                                 </div>
-                                {% for error in register_form.username.errors %}
-                                <p class="alert alert-danger mt-3" style="text-align:center;">{{ error }}</p>
-                                {% endfor %}
-                                <div class="form-row-title">
-                                    <h3>رمز عبور</h3>
-                                </div>
-                                <div class="form-row with-icon">
-                                    <input name="password" type="password" class="input-ui pr-2"
-                                        placeholder="رمز عبور خود را وارد نمایید">
-                                    <i class="mdi mdi-lock-open-variant-outline"></i>
-                                </div>
-                                <div class="form-row mt-2">
-                                    <div class="custom-control custom-checkbox float-right mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                        <label class="custom-control-label text-justify" for="customCheck3">
-                                            <a href="#">حریم خصوصی</a> و <a href="#">شرایط و قوانین</a> استفاده از سرویس
-                                            های سایت دیدیکالا را مطالعه نموده و با کلیه موارد آن موافقم.
-                                        </label>
+                                <div class="form-row mt-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="text-primary btn-link-border ml-1">دریافت مجدد کد تایید</span>
+                                        <span>(</span>
+                                        <p id="countdown-verify-end"></p>
+                                        <span>)</span>
                                     </div>
                                 </div>
                                 <div class="form-row mt-3">
                                     <button type="submit" class="btn-primary-cm btn-with-icon mx-auto w-100">
-                                        <i class="mdi mdi-account-circle-outline"></i>
-                                        ثبت نام در دیدیکالا
+                                        <i class="fad fa-arrow-right"></i>
+                                        تایید و ادامه
                                     </button>
                                 </div>
                             </form>
                             <div class="form-footer mt-3">
                                 <div>
-                                    <span class="font-weight-bold">قبلا ثبت نام کرده اید؟</span>
-                                    <a href="#" class="mr-3 mt-2">وارد شوید</a>
+                                    <span class="font-weight-bold">کاربر جدید هستید؟</span>
+                                    <a href="#" class="mr-3 mt-2">ثبت نام در دیدیکالا</a>
                                 </div>
                             </div>
                         </div>

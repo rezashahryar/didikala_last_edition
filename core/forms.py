@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from .models import User
+from .models import User, ActivationViaEmail
 
 # create your forms here
 

@@ -15,10 +15,11 @@ def send_mail(to, template, context):
 
 
 def send_activation_email(request, email, code):
-    print("sdfdsfsdf")
+
     context = {
         'subject': _('Profile activation'),
-        'uri': request.build_absolute_uri(reverse('core:activate', kwargs={'code': code})),
+        # 'code': request.build_absolute_uri(reverse('core:activate')),
+        'code': code
     }
-    print(email)
+
     send_mail(email, 'activate_user', context)
