@@ -186,17 +186,17 @@ class SetProductProperty(models.Model):
 
 
 class Question(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='answers', null=True, blank=True, verbose_name=_('والد'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='questions', verbose_name=_('کاربر'))
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='questions', verbose_name=_('محصول'))
-    text = models.TextField(_('متن'))
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='answers', null=True, blank=True, verbose_name=_('parent'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='questions', verbose_name=_('user'))
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='questions', verbose_name=_('product'))
+    text = models.TextField(_('text'))
 
     datetime_created = models.DateTimeField(_('datetime_created'), auto_now_add=True, null=True, blank=True)
 
     class Meta:
         ordering = ('-datetime_created', )
-        verbose_name = _('سوال')
-        verbose_name_plural = _('سوالات')
+        verbose_name = _('question')
+        verbose_name_plural = _('questions')
 
     def __str__(self):
         return format_html(

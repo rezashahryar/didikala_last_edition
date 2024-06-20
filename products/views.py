@@ -13,6 +13,7 @@ from .forms import QuestionForm
 class ProductsOfCategoryListView(generic.ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
+    # paginate_by = 12
 
     def get_queryset(self):
         global category_object
@@ -26,7 +27,7 @@ class ProductsOfCategoryListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['most_visited_products'] = Product.objects.filter(category=category_object) \
-            .order_by('-counted_views').select_related('category')
+            .select_related('category').order_by('-counted_views')
         context['newest_products'] = Product.objects.filter(category=category_object) \
             .order_by('-datetime_created').select_related('category')
         context['best_seller_products'] = Product.objects.filter(category=category_object) \
@@ -54,6 +55,7 @@ class ProductOfSubCategoryListView(generic.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
         context['most_visited_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('-counted_views').select_related('category')
         context['newest_products'] = Product.objects.filter(sub_category=sub_category_object) \

@@ -12,4 +12,5 @@ urlpatterns = [
     path('page-faq-category/', views.PageFaqCategoryView.as_view(), name='page_faq_category'),
     path('page-privacy/', views.PagePrivacyView.as_view(), name='page_privacy'),
     path('save-email/', views.save_email_users, name='save_email_users'),
+    path('welcome/', views.WelcomePageView.as_view(), name='welcome_page')
 ]

@@ -46,3 +46,7 @@ class PageFaqQuestionView(generic.TemplateView):
 
 class PagePrivacyView(generic.TemplateView):
     template_name = 'pages/page_privacy.html'
+
+
+class WelcomePageView(generic.TemplateView):
+    template_name = 'pages/welcome_page.html'
