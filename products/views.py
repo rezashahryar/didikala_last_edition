@@ -13,10 +13,11 @@ from .forms import QuestionForm
 class ProductsOfCategoryListView(generic.ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
-    # paginate_by = 12
+    paginate_by = 1
 
     def get_queryset(self):
         global category_object
+
         category_slug = self.kwargs.get('cat_slug')
         category_object = get_object_or_404(ProductCategory, slug=category_slug)
 
@@ -26,14 +27,19 @@ class ProductsOfCategoryListView(generic.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['most_visited_products'] = Product.objects.filter(category=category_object) \
-            .select_related('category').order_by('-counted_views')
+            .order_by('-counted_views').select_related('category')
+        
         context['newest_products'] = Product.objects.filter(category=category_object) \
             .order_by('-datetime_created').select_related('category')
+        
         context['best_seller_products'] = Product.objects.filter(category=category_object) \
             .order_by('-sales_number').select_related('category')
+        
         context['cheapest_products'] = Product.objects.filter(category=category_object) \
             .order_by('price').select_related('category')
+        
         context['most_expensive_products'] = Product.objects.filter(category=category_object) \
             .order_by('-price').select_related('category')
 
@@ -43,6 +49,7 @@ class ProductsOfCategoryListView(generic.ListView):
 class ProductOfSubCategoryListView(generic.ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
+    paginate_by = 12
 
     def get_queryset(self):
         global sub_category_object
@@ -58,12 +65,16 @@ class ProductOfSubCategoryListView(generic.ListView):
         
         context['most_visited_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('-counted_views').select_related('category')
+        
         context['newest_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('-datetime_created').select_related('category')
+        
         context['best_seller_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('-sales_number').select_related('category')
+        
         context['cheapest_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('price').select_related('category')
+        
         context['most_expensive_products'] = Product.objects.filter(sub_category=sub_category_object) \
             .order_by('-price').select_related('category')
 
@@ -73,6 +84,7 @@ class ProductOfSubCategoryListView(generic.ListView):
 class ProductOfSubSubCategoryListView(generic.ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
+    paginate_by = 12
 
     def get_queryset(self):
         global sub_sub_category_obj
@@ -87,12 +99,16 @@ class ProductOfSubSubCategoryListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['most_visited_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
             .order_by('-counted_views').select_related('category')
+        
         context['newest_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
             .order_by('-datetime_created').select_related('category')
+        
         context['best_seller_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
             .order_by('-sales_number').select_related('category')
+        
         context['cheapest_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
             .order_by('price').select_related('category')
+        
         context['most_expensive_products'] = Product.objects.filter(sub_sub_category=sub_sub_category_obj) \
             .order_by('-price').select_related('category')
 

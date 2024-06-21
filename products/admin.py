@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'sub_category', 'price', 'sales_number', 'inventory', 'available']
+    list_display = ['title', 'category', 'sub_category', 'price', 'sales_number', 'counted_views', 'inventory', 'available']
     list_editable = ['available']
     prepopulated_fields = {'slug': ('title',)}
 

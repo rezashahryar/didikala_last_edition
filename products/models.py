@@ -134,7 +134,7 @@ class Product(models.Model):
     datetime_created = models.DateTimeField(_('created_date'), auto_now_add=True)
     datetime_updated = models.DateTimeField(_('updated_date'), auto_now=True)
 
-    objects = models.Manager()
+    # objects = models.Manager()
 
     class Meta:
         ordering = ('-datetime_created',)

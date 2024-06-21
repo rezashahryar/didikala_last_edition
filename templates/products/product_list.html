@@ -2,10 +2,6 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}
-محصولات دسته بندی {{ category.title }}
-{% endblock title %}
-
 {% block body %}
         <!-- Start main-content -->
         <main class="main-content dt-sl mb-3">
@@ -31,7 +27,7 @@
                                         <input type="text" name="s"
                                             placeholder="نام محصول یا برند مورد نظر را بنویسید...">
                                         <button class="btn-search-widget">
-                                            <img src="{% static "assets/img/theme/search.png" %}" alt="">
+                                            <img src="./assets/img/theme/search.png" alt="">
                                         </button>
                                     </div>
                                 </div>
@@ -286,17 +282,17 @@
                                                 </div> {% endcomment %}
                                                 <div class="product-head">
                                                     <div class="rating-stars">
+                                                        {% comment %} <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star active"></i> {% endcomment %}
                                                     </div>
-                                                    <div class="discount">
-                                                        {% if product.get_discount %}
-                                                        <span>{{ product.discount }}%</span>
-                                                        {% endif %}
-                                                    </div>
+                                                    {% if product.get_discount %}
+                                                        <div class="discount">
+                                                            <span>{{ product.discount }}%</span>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                                 <a class="product-thumb" href="{{ product.get_absolute_url }}">
                                                     <img src="{{ product.cover.url }}" alt="Product Thumbnail">
@@ -311,10 +307,14 @@
                                                         </div>
                                                     </div>
                                                     <h5 class="product-title">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                        <a href="{{product.get_absolute_url }}">{{ product.title }}</a>
                                                     </h5>
-                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>
-                                                    <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
+                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">
+                                                        {{ product.category }}
+                                                    </a>
+                                                    <span class="product-price">
+                                                        {{ product.get_price|intcomma:False }} تومان
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -323,29 +323,32 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="pagination">
-                                                {% comment %} {% if page_obj.has_previous %}
-                                                    <a href="?page={{ page_obj.previous_page_number }}" class="prev"><i
-                                                            class="mdi mdi-chevron-double-right"></i></a>
-                                                {% endif %}
-
-                                                {% for i in page_obj.paginator.page_range %}
-                                                    {% if page_obj.number == i %}
-                                                        <a href="#" class="active-page">{{ i }}</a>
-                                                    {% elif i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
-                                                        <a href="?page={{ i }}" class="">{{ i }}</a>
+                                                <span class="step-links">
+                                                    {% if page_obj.has_previous %}
+                                                        <a href="?page={{ page_obj.previous_page_number }}" class="prev"><i
+                                                                class="mdi mdi-chevron-double-right"></i></a>
                                                     {% endif %}
-                                                {% endfor %}
-
-                                                {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
-                                                    <a href="#">&hellip;</a>
-                                                    {# <a href="?page={{ i }}">{{ i }}</a> #}
-                                                    <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-                                                {% endif %}
-                                                {% if page_obj.has_next %}
-                                                    <a href="?page={{ page_obj.next_page_number }}" class="next">
-                                                        <i class="mdi mdi-chevron-double-left"></i>
-                                                    </a>
-                                                {% endif %} {% endcomment %}
+    
+                                                    {% for i in page_obj.paginator.page_range %}
+                                                        {% if page_obj.number == i %}
+                                                            <a href="#" class="active-page">{{ i }}</a>
+                                                        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                                                            <a href="?page={{ i }}" class="">{{ i }}</a>
+                                                        {% endif %}
+                                                    {% endfor %}
+    
+                                                    {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+                                                        <a href="#">&hellip;</a>
+                                                        {# <a href="?page={{ i }}">{{ i }}</a> #}
+                                                        <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                                                    {% endif %}
+                                                    {% if page_obj.has_next %}
+                                                        <a href="?page={{ page_obj.next_page_number }}" class="next">
+                                                            <i class="mdi mdi-chevron-double-left"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -359,11 +362,11 @@
                                                 </div> {% endcomment %}
                                                 <div class="product-head">
                                                     <div class="rating-stars">
+                                                        {% comment %} <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
                                                         <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star active"></i> {% endcomment %}
                                                     </div>
                                                     {% if product.get_discount %}
                                                         <div class="discount">
@@ -391,172 +394,165 @@
                                 <div class="ah-tab-content dt-sl">
                                     <div class="row mb-3 mx-0 px-res-0">
                                         {% for product in newest_products %}
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                            <div class="product-card mb-2 mx-res-0">
-                                                {% comment %} <div class="promotion-badge">
-                                                    فروش ویژه
-                                                </div> {% endcomment %}
-                                                <div class="product-head">
-                                                    <div class="rating-stars">
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                    </div>
-                                                    {% if product.get_discount %}
-                                                        <div class="discount">
-                                                            <span>{{ product.discount }}%</span>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                                <div class="product-card mb-2 mx-res-0">
+                                                    {% comment %} <div class="promotion-badge">
+                                                        فروش ویژه
+                                                    </div> {% endcomment %}
+                                                    <div class="product-head">
+                                                        <div class="rating-stars">
+                                                            {% comment %} <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i> {% endcomment %}
                                                         </div>
-                                                    {% endif %}
-                                                </div>
-                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                    <img src="{{ product.cover.url }}" alt="Product Thumbnail">
-                                                </a>
-                                                <div class="product-card-body">
-                                                    <h5 class="product-title">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                    </h5>
-                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">
-                                                        {{ product.category }}
+                                                        {% if product.get_discount %}
+                                                            <div class="discount">
+                                                                <span>{{ product.discount }}%</span>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                        <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                                     </a>
-                                                    <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
+                                                    <div class="product-card-body">
+                                                        <h5 class="product-title">
+                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                        </h5>
+                                                        <a class="product-meta" href="{{ product.category.get_absolute_url }}">
+                                                            {{ product.category }}
+                                                        </a>
+                                                        <span class="product-price">
+                                                            {{ product.get_price|intcomma:False }} تومان
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         {% endfor %}
                                     </div>
                                 </div>
                                 <div class="ah-tab-content dt-sl">
                                     <div class="row mb-3 mx-0 px-res-0">
                                         {% for product in best_seller_products %}
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                            <div class="product-card mb-2 mx-res-0">
-                                                {% comment %} <div class="promotion-badge">
-                                                    فروش ویژه
-                                                </div> {% endcomment %}
-                                                <div class="product-head">
-                                                    <div class="rating-stars">
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                                <div class="product-card mb-2 mx-res-0">
+                                                    {% comment %} <div class="promotion-badge">
+                                                        فروش ویژه
+                                                    </div> {% endcomment %}
+                                                    <div class="product-head">
+                                                        <div class="rating-stars">
+                                                            {% comment %} <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i> {% endcomment %}
+                                                        </div>
+                                                        {% if product.get_discount %}
+                                                            <div class="discount">
+                                                                <span>{{ product.discount }}%</span>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                    {% if product.get_discount %}
-                                                    <div class="discount">
-                                                        <span>{{ product.discount }}%</span>
-                                                    </div>
-                                                    {% endif %}
-                                                </div>
-                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                    <img src="{{ product.cover.url }}" alt="Product Thumbnail">
-                                                </a>
-                                                <div class="product-card-body">
-                                                    <h5 class="product-title">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                    </h5>
-                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">
-                                                        {{ product.category }}
+                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                        <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                                     </a>
-                                                    <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
+                                                    <div class="product-card-body">
+                                                        <h5 class="product-title">
+                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                        </h5>
+                                                        <a class="product-meta" href="{{ product.category.get_absolute_url }}">
+                                                            {{ product.category }}
+                                                        </a>
+                                                        <span class="product-price">
+                                                            {{ product.get_price|intcomma:False }} تومان
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         {% endfor %}
                                     </div>
                                 </div>
                                 <div class="ah-tab-content dt-sl">
                                     <div class="row mb-3 mx-0 px-res-0">
                                         {% for product in cheapest_products %}
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                            <div class="product-card mb-2 mx-res-0">
-                                                {% comment %} <div class="promotion-badge">
-                                                    فروش ویژه
-                                                </div> {% endcomment %}
-                                                <div class="product-head">
-                                                    <div class="rating-stars">
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                                <div class="product-card mb-2 mx-res-0">
+                                                    {% comment %} <div class="promotion-badge">
+                                                        فروش ویژه
+                                                    </div> {% endcomment %}
+                                                    <div class="product-head">
+                                                        <div class="rating-stars">
+                                                            {% comment %} <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i> {% endcomment %}
+                                                        </div>
+                                                        {% if product.get_discount %}
+                                                            <div class="discount">
+                                                                <span>{{ product.discount }}%</span>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                    {% if product.get_discount %}
-                                                    <div class="discount">
-                                                        <span>{{ product.discount }}%</span>
-                                                    </div>
-                                                    {% endif %}
-                                                </div>
-                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                    <img src="{{ product.cover.url }}" alt="Product Thumbnail">
-                                                </a>
-                                                <div class="product-card-body">
-                                                    <h5 class="product-title">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                    </h5>
-                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">
-                                                        {{ product.category }}
+                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                        <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                                     </a>
-                                                    <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
+                                                    <div class="product-card-body">
+                                                        <h5 class="product-title">
+                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                        </h5>
+                                                        <a class="product-meta" href="{{ product.category.get_absolute_url }}">
+                                                            {{ product.category }}
+                                                        </a>
+                                                        <span class="product-price">
+                                                            {{ product.get_price|intcomma:False }} تومان
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         {% endfor %}
                                     </div>
                                 </div>
                                 <div class="ah-tab-content dt-sl">
                                     <div class="row mb-3 mx-0 px-res-0">
                                         {% for product in most_expensive_products %}
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                            <div class="product-card mb-2 mx-res-0">
-                                                {% comment %} <div class="promotion-badge">
-                                                    فروش ویژه
-                                                </div> {% endcomment %}
-                                                <div class="product-head">
-                                                    <div class="rating-stars">
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
-                                                        <i class="mdi mdi-star active"></i>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                                <div class="product-card mb-2 mx-res-0">
+                                                    {% comment %} <div class="promotion-badge">
+                                                        فروش ویژه
+                                                    </div> {% endcomment %}
+                                                    <div class="product-head">
+                                                        <div class="rating-stars">
+                                                            {% comment %} <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i> {% endcomment %}
+                                                        </div>
+                                                        {% if product.get_discount %}
+                                                            <div class="discount">
+                                                                <span>{{ product.discount }}%</span>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                    {% if product.get_discount %}
-                                                    <div class="discount">
-                                                        <span>{{ product.discount }}%</span>
-                                                    </div>
-                                                    {% endif %}
-                                                </div>
-                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                    <img src="{{ product.cover.url }}" alt="Product Thumbnail">
-                                                </a>
-                                                <div class="product-card-body">
-                                                    <h5 class="product-title">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                    </h5>
-                                                    <a class="product-meta" href="{{ product.category.get_absolute_url }}">
-                                                        {{ product.category }}
+                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                        <img src="{{ product.cover.url }}" alt="Product Thumbnail">
                                                     </a>
-                                                    <span class="product-price">{{ product.get_price|intcomma:False }} تومان</span>
+                                                    <div class="product-card-body">
+                                                        <h5 class="product-title">
+                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                        </h5>
+                                                        <a class="product-meta" href="{{ product.category.get_absolute_url }}">
+                                                            {{ product.category }}
+                                                        </a>
+                                                        <span class="product-price">
+                                                            {{ product.get_price|intcomma:False }} تومان
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         {% endfor %}
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="pagination">
-                                                <a href="#" class="prev"><i
-                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                <a href="#">1</a>
-                                                <a href="#" class="active-page">2</a>
-                                                <a href="#">3</a>
-                                                <a href="#">4</a>
-                                                <a href="#">...</a>
-                                                <a href="#">7</a>
-                                                <a href="#" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -569,32 +565,29 @@
         <!-- End main-content -->
 {% endblock body %}
 
-
-
-
-{% block script %}
-<script>
-    $(document).ready(function () {
-        var nonLinearStepSlider = document.getElementById('slider-non-linear-step');
-        noUiSlider.create(nonLinearStepSlider, {
-            start: [0, 20000],
-            connect: true,
-            direction: 'rtl',
-            format: wNumb({
-                decimals: 0,
-                thousand: ','
-            }),
-            range: {
-                'min': [0],
-                '10%': [500, 500],
-                '50%': [40000, 1000],
-                'max': [100000]
-            }
+    {% block script %}
+    <script>
+        $(document).ready(function () {
+            var nonLinearStepSlider = document.getElementById('slider-non-linear-step');
+            noUiSlider.create(nonLinearStepSlider, {
+                start: [0, 20000],
+                connect: true,
+                direction: 'rtl',
+                format: wNumb({
+                    decimals: 0,
+                    thousand: ','
+                }),
+                range: {
+                    'min': [0],
+                    '10%': [500, 500],
+                    '50%': [40000, 1000],
+                    'max': [100000]
+                }
+            });
+            var nonLinearStepSliderValueElement = document.getElementById('slider-non-linear-step-value');
+            nonLinearStepSlider.noUiSlider.on('update', function (values) {
+                nonLinearStepSliderValueElement.innerHTML = values.join(' - ');
+            });
         });
-        var nonLinearStepSliderValueElement = document.getElementById('slider-non-linear-step-value');
-        nonLinearStepSlider.noUiSlider.on('update', function (values) {
-            nonLinearStepSliderValueElement.innerHTML = values.join(' - ');
-        });
-    });
-</script>
-{% endblock script %}
+    </script>
+    {% endblock script %}
